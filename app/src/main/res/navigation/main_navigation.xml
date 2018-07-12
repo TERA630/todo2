@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:startDestination="@+id/launcher_home">
+    <fragment
+        android:id="@+id/launcher_home"
+        android:name="com.example.yoshi.todo2.MainFragment"
+        android:label="Home"
+        tools:layout="@layout/main_fragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.example.yoshi.todo2.detail"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
+
+</navigation>

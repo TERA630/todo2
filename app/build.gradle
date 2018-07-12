@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.yoshi.todo2"
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+            debug {
+                applicationIdSuffix = ".debug"
+                ext.enableCrashlytics = false
+                minifyEnabled false
+                testCoverageEnabled false
+            }
+        }
+        sourceSets {
+            main.java.srcDirs += 'src/main/kotlin'
+        }
+    }
+
+    dependencies {
+        def support_version = '27.1.1'
+        def lifecycle_version = "1.1.1"
+        def navigationVersion = "1.0.0-alpha02"
+
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+        implementation "com.android.support:appcompat-v7:$support_version"
+        implementation "com.android.support:recyclerview-v7:$support_version"
+        implementation "com.android.support:design:$support_version"
+
+        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+        implementation "android.arch.navigation:navigation-fragment:$navigationVersion"
+
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-v4:27.+'
+}
