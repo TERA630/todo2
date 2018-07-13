@@ -15,21 +15,21 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:alpha="0"
             android:background="?attr/colorPrimary"
+            android:elevation="4dp"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/my_nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            app:navGraph="@navigation/main_navigation"
-            app:defaultNavHost="true"
-            />
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <fragment
+        android:id="@+id/my_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="511dp"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_navigation"
+        tools:layout="@layout/main_fragment" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

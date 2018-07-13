@@ -2,6 +2,7 @@ package com.example.yoshi.todo2
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,13 +13,14 @@ import android.view.ViewGroup
 class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        Log.d("test","Fragment onCreated")
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("test","Fragment onCreated")
         //TODO STEP 5 - Set an OnClickListener, using Navigation.createNavigateOnClickListener()
 //        view.findViewById<Button>(R.id.navigate_dest_bt)?.setOnClickListener(
 //            Navigation.createNavigateOnClickListener(R.id.flow_step_one, null)

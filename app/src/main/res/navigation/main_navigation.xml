@@ -10,11 +10,32 @@
         android:label="Home"
         tools:layout="@layout/main_fragment">
 
+        <action
+            android:id="@+id/action_launcher_home_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/detail"
         android:name="com.example.yoshi.todo2.detail"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.yoshi.todo2.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_mainFragment2"
+            app:destination="@id/mainFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment2"
+        android:name="com.example.yoshi.todo2.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment2_to_launcher_home"
+            app:destination="@id/launcher_home" />
+    </fragment>
 
 </navigation>
