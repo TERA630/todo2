@@ -6,9 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.android.ext.android.inject
 
@@ -23,29 +20,20 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Log.d("test","Fragment onCreated")
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("test", "Fragment onCreated")
+        Log.d("test", "Fragment onViewCreated")
         val recyclerView = recycler_view
-        val list = listOf("Wakeup",
-                "move the core of body",
-                "remember what to do",
-                "get up",
-                "wash the face",
-                "change the cloth",
-                "make protein shake",
-                "eat and drink",
-                "go out",
-                "run if I can")
-        viewModel.initNavAnim()
-
-        val recyclerViewAdapter = RecyclerViewAdapter(list, viewModel)
+        viewModel.initTitleList()
+        val list = viewModel.titleList
+        val recyclerViewAdapter = RecyclerViewAdapter(mList = list, viewModel = viewModel)
+        Log.d("test", "Recycler view was attached")
         recyclerView.adapter  = recyclerViewAdapter
         recyclerView.setHasFixedSize(true)
+
     }
     /*
     // Swipe / drag listener

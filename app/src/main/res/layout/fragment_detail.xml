@@ -62,13 +62,11 @@
 
         <TableRow>
 
-            <EditText
+            <TextView
                 android:id="@+id/startDateTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="text|date"
-                android:singleLine="true"
                 android:text="----/--/--"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="visible" />
@@ -90,13 +88,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
+            <TextView
                 android:id="@+id/deadDateTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="text|date"
-                android:singleLine="true"
                 android:text="----/--/--"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="visible" />
