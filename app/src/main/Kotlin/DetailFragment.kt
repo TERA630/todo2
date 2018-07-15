@@ -1,7 +1,6 @@
 package com.example.yoshi.todo2
 
 import android.app.DatePickerDialog
-import android.content.ContentValues.TAG
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,15 +12,11 @@ import android.widget.DatePicker
 import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_detail.*
-import org.koin.android.ext.android.inject
+import org.koin.android.architecture.ext.sharedViewModel
 
 
 class DetailFragment : Fragment() {
-    val viewModel by inject<MainViewModel>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG, "DetailFragment frag was called")
-    }
+    val vModel by sharedViewModel<MainViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,9 +31,10 @@ class DetailFragment : Fragment() {
             safeArgs.itemNumber
         } ?: 0
 
-        titleTxt.setText("To do is $itemNumber")
-        applyBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home, null))
-        cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home, null))
+        Log.i("test", "${vModel}")
+        applyBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home))
+        cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home))
+        titleTxt.setText("${vModel.titleList[itemNumber]}")
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)

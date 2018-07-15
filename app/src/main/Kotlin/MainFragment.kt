@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.main_fragment.*
-import org.koin.android.ext.android.inject
-
+import org.koin.android.architecture.ext.sharedViewModel
 
 /*
     MVC/MVP - View
@@ -16,7 +15,7 @@ import org.koin.android.ext.android.inject
     データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡
  */
 class MainFragment : Fragment() {
-    private val viewModel by inject<MainViewModel>()
+    val vModel by sharedViewModel<MainViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,9 +26,10 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d("test", "Fragment onViewCreated")
         val recyclerView = recycler_view
-        viewModel.initTitleList()
-        val list = viewModel.titleList
-        val recyclerViewAdapter = RecyclerViewAdapter(mList = list, viewModel = viewModel)
+        vModel.initTitleList()
+        val list = vModel.titleList
+        Log.i("test", "$vModel")
+        val recyclerViewAdapter = RecyclerViewAdapter(mList = list, viewModel = vModel)
         Log.d("test", "Recycler view was attached")
         recyclerView.adapter  = recyclerViewAdapter
         recyclerView.setHasFixedSize(true)
