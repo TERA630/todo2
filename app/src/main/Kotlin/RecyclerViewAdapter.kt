@@ -29,14 +29,9 @@ class RecyclerViewAdapter(private val mList: List<String>, private val viewModel
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder{
         val rowView = LayoutInflater.from(parent.context).inflate(R.layout.list_items, parent,false)
-        val option = viewModel.navOptions
-        rowView.editBtn.setOnClickListener { v: View ->
-            val navController = Navigation.findNavController(v)
-            navController.navigate(R.id.fragment_detail, null, option)
-        }
+        rowView.editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_launcher_home_to_detail))
         return RecyclerViewHolder(rowView)
     }
-
     /*
      fun move(_fromPosition: Int, _toPosition: Int) {
          val textStack = lists.removeAt(index = _fromPosition)

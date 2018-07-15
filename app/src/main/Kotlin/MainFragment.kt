@@ -4,14 +4,23 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import kotlinx.android.synthetic.main.main_fragment.*
+import org.koin.android.ext.android.inject
 
 
+/*
+    MVC/MVP - View
+    Controller or Presenter から　Listを貰い､表示する｡
+    データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡
+ */
 class MainFragment : Fragment() {
+    private val viewModel by inject<MainViewModel>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Log.d("test","Fragment onCreated")
@@ -20,48 +29,23 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("test","Fragment onCreated")
+        Log.d("test", "Fragment onCreated")
         val recyclerView = recycler_view
         val list = listOf("Wakeup",
-                    "move the core of body",
-                    "remember what to do",
-                    "get up",
-                    "wash the face",
-                    "change the cloth",
-                    "make protein shake",
-                    "eat and drink",
-                    "go out",
-                    "run if I can")
-        val recyclerViewAdapter = RecyclerViewAdapter(list)
+                "move the core of body",
+                "remember what to do",
+                "get up",
+                "wash the face",
+                "change the cloth",
+                "make protein shake",
+                "eat and drink",
+                "go out",
+                "run if I can")
+        viewModel.initNavAnim()
+
+        val recyclerViewAdapter = RecyclerViewAdapter(list, viewModel)
         recyclerView.adapter  = recyclerViewAdapter
         recyclerView.setHasFixedSize(true)
-
-        //TODO STEP 5 - Set an OnClickListener, using Navigation.createNavigateOnClickListener()
-//        view.findViewById<Button>(R.id.navigate_dest_bt)?.setOnClickListener(
-//            Navigation.createNavigateOnClickListener(R.id.flow_step_one, null)
-//        )
-        //TODO ENDSTEP 5
-
-        //TODO STEP 6 - Set NavOptions
-
-//        val options = NavOptions.Builder()
-//            .setEnterAnim(R.anim.slide_in_right)
-//            .setExitAnim(R.anim.slide_out_left)
-//            .setPopEnterAnim(R.anim.slide_in_left)
-//            .setPopExitAnim(R.anim.slide_out_right)
-//            .build()
-//
-//        view.findViewById<Button>(R.id.navigate_dest_bt)?.setOnClickListener {
-//            findNavController(it).navigate(R.id.flow_step_one, null, options)
-//        }
-        //TODO ENDSTEP 6
-
-        //TODO STEP 7 - Update the OnClickListener to navigate using an action
-//        view.findViewById<Button>(R.id.navigate_action_bt)?.setOnClickListener(
-//                Navigation.createNavigateOnClickListener(R.id.next_action, null)
-//        )
-
-        //TODO ENDSTEP 7
     }
     /*
     // Swipe / drag listener

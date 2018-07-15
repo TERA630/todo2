@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detail">
+    tools:context=".DetailFragment">
+
     <TableLayout
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
         <TableRow>
+
             <EditText
                 android:id="@+id/titleTxt"
                 android:layout_width="wrap_content"
@@ -42,6 +45,7 @@
                 android:layout_width="107dp"
                 android:layout_height="wrap_content" />
         </TableRow>
+
         <TableRow>
 
             <EditText
@@ -82,7 +86,9 @@
                 android:switchMinWidth="@android:dimen/app_icon_size" />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/deadDateTxt"
@@ -107,30 +113,29 @@
                 android:layout_height="wrap_content"
                 android:switchMinWidth="@android:dimen/app_icon_size" />
         </TableRow>
-
         <TableRow>
 
-            <EditText
-                android:id="@+id/rewardPoint"
-                style="@style/TextAppearance.AppCompat.Large"
-                android:layout_width="0dp"
+            <RatingBar
+                android:id="@+id/rewardRate"
+                android:layout_width="367dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:inputType="number"
-                android:text="1"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/unitLbl"
-                style="@style/TextAppearance.AppCompat.Large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:text="Point"
-
+                android:stepSize="1"
                 android:visibility="visible" />
         </TableRow>
 
+        <TableRow>
+
+            <Button
+                android:id="@+id/applyBtn"
+                android:layout_width="186dp"
+                android:layout_weight="1"
+                android:text="@string/apply" />
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_weight="1"
+                android:text="@string/cancel" />
+        </TableRow>
     </TableLayout>
+
 </FrameLayout>

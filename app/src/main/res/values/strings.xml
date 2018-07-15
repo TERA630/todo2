@@ -4,4 +4,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="filterCondition">表示条件</string>
+    <string name="apply">決定</string>
+    <string name="cancel">元に戻す</string>
 </resources>
