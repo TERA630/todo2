@@ -1,5 +1,7 @@
 package com.example.yoshi.todo2
 
+import android.arch.lifecycle.Observer
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -15,25 +17,30 @@ import org.koin.android.architecture.ext.sharedViewModel
     データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡
  */
 class MainFragment : Fragment() {
+    lateinit var mAdapter: RecyclerViewAdapter
     val vModel by sharedViewModel<MainViewModel>()
-
+    
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        Log.i("test", "$vModel")
+        vModel.itemList.observe(this, Observer {
+            Log.i("test", "${this.javaClass}@${this.hashCode()} listened the change ")
+            mAdapter.setListOfAdapter(vModel.getItemList())
+            mAdapter.notifyDataSetChanged()
+        })
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("test", "Fragment onViewCreated")
         val recyclerView = recycler_view
-        vModel.initTitleList()
-        val list = vModel.titleList
-        Log.i("test", "$vModel")
-        val recyclerViewAdapter = RecyclerViewAdapter(mList = list, viewModel = vModel)
-        Log.d("test", "Recycler view was attached")
-        recyclerView.adapter  = recyclerViewAdapter
+        val list = vModel.getItemList()
+        val mAdapter = RecyclerViewAdapter(mList = list)
+        Log.d("test", "$vModel Recycler view was attached")
+        recyclerView.adapter = mAdapter
         recyclerView.setHasFixedSize(true)
-
     }
     /*
     // Swipe / drag listener

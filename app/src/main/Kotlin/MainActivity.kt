@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val vModel = getViewModel<MainViewModel>()
+        vModel.initItems()
         Log.i("test", "$vModel")
         //　ToDo　ポイント集計ロジック
         fab.setOnClickListener { view ->

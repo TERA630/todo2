@@ -14,13 +14,14 @@ import kotlinx.android.synthetic.main.list_items.view.*
     データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡
  */
 
-class RecyclerViewAdapter(private val mList: List<String>, private val viewModel: MainViewModel)
+class RecyclerViewAdapter(private var mList: List<String>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     // method
     override fun getItemCount(): Int = mList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder.itemView.itemTile.text = mList[position]
+
         val bundle = Bundle()
         bundle.putInt("itemNumber", position)
         holder.itemView.editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_launcher_home_to_detail, bundle))
@@ -35,6 +36,12 @@ class RecyclerViewAdapter(private val mList: List<String>, private val viewModel
          lists.add(_toPosition, textStack)
          this@BindingRecyclerViewAdapter.notifyItemMoved(_fromPosition, _toPosition)
      } */
+
+    fun setListOfAdapter(_list: MutableList<String>) {
+        this.mList = _list
+    }
+
     class RecyclerViewHolder(val itemView:View) : RecyclerView.ViewHolder(itemView)
+
 
 }

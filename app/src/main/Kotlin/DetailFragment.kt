@@ -30,11 +30,17 @@ class DetailFragment : Fragment() {
             val safeArgs = DetailFragmentArgs.fromBundle(it)
             safeArgs.itemNumber
         } ?: 0
+        titleTxt.setText("${vModel.getItemList()[itemNumber]}")
 
         Log.i("test", "${vModel}")
-        applyBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home))
+
+        applyBtn.setOnClickListener { v: View ->
+            vModel.modifyItem(itemNumber, titleTxt.editableText.toString())
+            val navController = Navigation.findNavController(v)
+            navController.navigate(R.id.action_fragment_detail_to_launcher_home)
+        }
         cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home))
-        titleTxt.setText("${vModel.titleList[itemNumber]}")
+
 
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -54,7 +60,7 @@ class DetailFragment : Fragment() {
     }
     companion object {
         @JvmStatic
-        fun newInstance(thisDate: String): DetailFragment {
+        fun newInstance(): DetailFragment {
             val bundle = Bundle()
             val newFragment = DetailFragment()
             newFragment.arguments = bundle
