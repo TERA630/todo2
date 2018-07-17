@@ -8,14 +8,13 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
-
         <TableRow>
 
             <EditText
                 android:id="@+id/titleTxt"
-                android:layout_width="wrap_content"
+                android:layout_width="230dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:ems="10"
                 android:hint="input new item"
                 android:inputType="text|textPersonName"
@@ -23,90 +22,94 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="visible" />
 
-        </TableRow>
+            <ImageButton
+                android:id="@+id/applyBtn"
+                android:layout_width="@dimen/imgBtn_size"
+                android:layout_height="@dimen/imgBtn_size"
+                android:layout_weight="1"
+                android:src="@drawable/ic_ok"
+                tools:src="@drawable/ic_ok" />
 
+            <ImageButton
+                android:id="@+id/cancelBtn"
+                android:layout_width="@dimen/imgBtn_size"
+                android:layout_height="@dimen/imgBtn_size"
+                android:layout_weight="1"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                tools:src="@android:drawable/ic_menu_close_clear_cancel" />
+        </TableRow>
         <TableRow>
 
-            <TextView
-                android:id="@+id/isRoutainLabel"
-                android:layout_width="322dp"
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text=" Routain work"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
+                android:layout_weight="3" />
             <Switch
                 android:id="@+id/isRoutainSw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:switchMinWidth="@android:dimen/app_icon_size" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="107dp"
-                android:layout_height="wrap_content" />
         </TableRow>
-
         <TableRow>
-
             <EditText
                 android:id="@+id/tagTxt"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="5"
                 android:hint="enter TAG"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:visibility="visible" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:visibility="visible"
+                tools:text="home,exercise" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:id="@+id/startDateTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="----/--/--"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="visible" />
 
             <ImageButton
                 android:id="@+id/startCal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/imgBtn_size"
+                android:layout_height="@dimen/imgBtn_size"
+                android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_day" />
-
             <Switch
                 android:id="@+id/hasStartSw"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:switchMinWidth="@android:dimen/app_icon_size" />
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+        <TableRow>
             <TextView
                 android:id="@+id/deadDateTxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="----/--/--"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:visibility="visible" />
 
             <ImageButton
                 android:id="@+id/deadCal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/imgBtn_size"
+                android:layout_height="@dimen/imgBtn_size"
+                android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_day" />
-
             <Switch
                 android:id="@+id/hasDeadSw"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:switchMinWidth="@android:dimen/app_icon_size" />
         </TableRow>
         <TableRow>
@@ -115,23 +118,12 @@
                 android:id="@+id/rewardRate"
                 android:layout_width="367dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:max="5"
+                android:numStars="1"
+                android:rating="1"
                 android:stepSize="1"
                 android:visibility="visible" />
         </TableRow>
-
-        <TableRow>
-
-            <Button
-                android:id="@+id/applyBtn"
-                android:layout_width="186dp"
-                android:layout_weight="1"
-                android:text="@string/apply" />
-
-            <Button
-                android:id="@+id/cancelBtn"
-                android:layout_weight="1"
-                android:text="@string/cancel" />
-        </TableRow>
     </TableLayout>
-
 </FrameLayout>

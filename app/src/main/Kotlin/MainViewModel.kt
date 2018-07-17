@@ -37,6 +37,6 @@ class MainViewModel : ViewModel() {
     fun modifyItem(index: Int, _newString: String) {
         val mList = getItemList()
         mList[index] = _newString
-        itemList.postValue(mList)
+        itemList.value = mList
     }
 }

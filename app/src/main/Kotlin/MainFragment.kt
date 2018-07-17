@@ -1,7 +1,6 @@
 package com.example.yoshi.todo2
 
 import android.arch.lifecycle.Observer
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -18,17 +17,7 @@ import org.koin.android.architecture.ext.sharedViewModel
  */
 class MainFragment : Fragment() {
     lateinit var mAdapter: RecyclerViewAdapter
-    val vModel by sharedViewModel<MainViewModel>()
-    
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        Log.i("test", "$vModel")
-        vModel.itemList.observe(this, Observer {
-            Log.i("test", "${this.javaClass}@${this.hashCode()} listened the change ")
-            mAdapter.setListOfAdapter(vModel.getItemList())
-            mAdapter.notifyDataSetChanged()
-        })
-    }
+    private val vModel by sharedViewModel<MainViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.main_fragment, container, false)
@@ -36,11 +25,21 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = recycler_view
+
         val list = vModel.getItemList()
-        val mAdapter = RecyclerViewAdapter(mList = list)
-        Log.d("test", "$vModel Recycler view was attached")
+        mAdapter = RecyclerViewAdapter(mList = list)
         recyclerView.adapter = mAdapter
         recyclerView.setHasFixedSize(true)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.i("test", " On Activity Created $vModel")
+        vModel.itemList.observe(this@MainFragment, Observer {
+            Log.i("test", "${this.javaClass}@${this.hashCode()} listened the change ")
+            mAdapter.setListOfAdapter(vModel.getItemList())
+            mAdapter.notifyDataSetChanged()
+        })
     }
     /*
     // Swipe / drag listener

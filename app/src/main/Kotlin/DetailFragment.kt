@@ -14,7 +14,6 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.architecture.ext.sharedViewModel
 
-
 class DetailFragment : Fragment() {
     val vModel by sharedViewModel<MainViewModel>()
 
@@ -22,7 +21,6 @@ class DetailFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
