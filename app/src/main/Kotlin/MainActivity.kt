@@ -7,7 +7,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.architecture.ext.getViewModel
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)

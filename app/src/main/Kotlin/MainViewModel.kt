@@ -32,11 +32,20 @@ class MainViewModel : ViewModel() {
     fun deleteItem(index: Int) {
         val mList = getItemList()
         mList.removeAt(index)
+        itemList.value = mList
     }
 
     fun modifyItem(index: Int, _newString: String) {
         val mList = getItemList()
         mList[index] = _newString
         itemList.value = mList
+    }
+
+    fun swapItem(fromPostion: Int, toPosition: Int) {
+        val list = getItemList()
+        val str = list[toPosition]
+        list[toPosition] = list[fromPostion]
+        list[fromPostion] = str
+        itemList.value = list
     }
 }
