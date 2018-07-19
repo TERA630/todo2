@@ -41,7 +41,7 @@ class RecyclerViewAdapter(private var mList: List<String>)
         this.mList = _list
     }
 
-    class RecyclerViewHolder(val itemView:View) : RecyclerView.ViewHolder(itemView)
+    class RecyclerViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView)
 
 
 }

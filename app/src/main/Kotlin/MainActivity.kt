@@ -7,11 +7,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.architecture.ext.getViewModel
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var vModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val vModel = getViewModel<MainViewModel>()
+        vModel = getViewModel()
         vModel.initItems()
         //　ToDo　ポイント集計ロジック
         fab.setOnClickListener { view ->
@@ -19,5 +20,10 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
             // ToDo 新規アイテム追加
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val dataStorageDeliver = DataStorageDeliver()
     }
 }

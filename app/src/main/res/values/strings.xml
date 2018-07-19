@@ -7,4 +7,5 @@
     <string name="filterCondition">表示条件</string>
     <string name="apply">決定</string>
     <string name="cancel">元に戻す</string>
+    <string name="undefinedDate">----/--/--</string>
 </resources>

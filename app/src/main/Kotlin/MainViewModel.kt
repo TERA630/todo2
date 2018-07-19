@@ -41,11 +41,11 @@ class MainViewModel : ViewModel() {
         itemList.value = mList
     }
 
-    fun swapItem(fromPostion: Int, toPosition: Int) {
+    fun swapItem(fromPosition: Int, toPosition: Int) {
         val list = getItemList()
         val str = list[toPosition]
-        list[toPosition] = list[fromPostion]
-        list[fromPostion] = str
+        list[toPosition] = list[fromPosition]
+        list[fromPosition] = str
         itemList.value = list
     }
 }

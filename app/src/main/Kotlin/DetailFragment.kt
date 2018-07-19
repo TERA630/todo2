@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.architecture.ext.sharedViewModel
 
 class DetailFragment : Fragment() {
-    val vModel by sharedViewModel<MainViewModel>()
+    private val vModel by sharedViewModel<MainViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,9 +28,9 @@ class DetailFragment : Fragment() {
             val safeArgs = DetailFragmentArgs.fromBundle(it)
             safeArgs.itemNumber
         } ?: 0
-        titleTxt.setText("${vModel.getItemList()[itemNumber]}")
+        titleTxt.setText(vModel.getItemList()[itemNumber])
 
-        Log.i("test", "${vModel}")
+        Log.i("test", "$vModel")
 
         applyBtn.setOnClickListener { v: View ->
             vModel.modifyItem(itemNumber, titleTxt.editableText.toString())

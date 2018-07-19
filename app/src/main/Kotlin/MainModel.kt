@@ -1,21 +1,17 @@
 package com.example.yoshi.todo2
 
 import android.content.Context
-
-data class todoItem constructor(
-        var id: Int = 0,
-        var title: String = "thing to do",
-        var reward: Int = 1,
-        var isRoutain: Boolean = false,
-        var hasStartLine: Boolean = false,
-        var startLine: String = "----/--/--",
-        var hasDeadLine: Boolean = false,
-        var deadLine: String = "----/--/--",
-        var tagString: String = "home"
-)
+import android.util.Log
+import kotlinx.serialization.json.JSON
 
 class DataStorageDeliver {
 
+    fun listToJSON(_mutableList: MutableList<String>) {
+
+        val json: String = JSON.stringify(_mutableList)
+        Log.i("test", "$json in listtoJSON: ")
+
+    }
     fun saveStringToPreference(_key: String, _string: String, context: Context) {
         val preferences = context.getSharedPreferences(_key, Context.MODE_PRIVATE)
         val preferenceEditor = preferences.edit()
@@ -23,7 +19,7 @@ class DataStorageDeliver {
         preferenceEditor.apply()
     }
 
-    fun loadStringFromPreferenece(_key: String, context: Context): String {
+    fun loadStringFromPreference(_key: String, context: Context): String {
         val preferences = context.getSharedPreferences(_key, Context.MODE_PRIVATE)
         return preferences?.getString(_key, "not defined") ?: "fail to load"
     }

@@ -15,7 +15,7 @@ import org.koin.android.architecture.ext.sharedViewModel
     Controller or Presenter から　Listを貰い､表示する｡
     データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡  */
 class MainFragment : Fragment() {
-    lateinit var mAdapter: RecyclerViewAdapter
+    private lateinit var mAdapter: RecyclerViewAdapter
     private val vModel by sharedViewModel<MainViewModel>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,7 +45,7 @@ class MainFragment : Fragment() {
         val mIth = ItemTouchHelper(object : ItemTouchHelper.Callback() {
 
             override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int =
-                    makeMovementFlags(ItemTouchHelper.UP, ItemTouchHelper.RIGHT)
+                    makeMovementFlags((ItemTouchHelper.UP + ItemTouchHelper.DOWN), ItemTouchHelper.RIGHT)
 
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 vModel.swapItem(viewHolder.adapterPosition, target.adapterPosition)
