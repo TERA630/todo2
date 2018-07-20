@@ -26,7 +26,7 @@ data class ToDoItem constructor(
 )
 
 @RunWith(JUnit4::class)
-class SerializiersTest {
+class SerializersTest : Throwable() {
     @Test
     fun serializaitonTest() {
         val i = IntSerializer
@@ -35,8 +35,7 @@ class SerializiersTest {
         val ls = ArrayListSerializer(s)
         val toDoItem = ToDoItem()
 
-        val lToDo: KSerializer<ToDoItem> = ToDoItem.serializer()
-        val lToDo2: KSerializer<ToDoItem> = ToDoItem::class.serializer()
+        val lToDo: KSerializer<ToDoItem> = ToDoItem::class.serializer()
 
         val testIntList = listOf(0, 1, 2, 3, 4)
         val testStringList = listOf("dog", "cat", "bird", "fox")

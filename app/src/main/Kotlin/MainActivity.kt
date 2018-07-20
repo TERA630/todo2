@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         vModel = getViewModel()
-        vModel.initItems()
+        vModel.initItems(this.applicationContext)
         //　ToDo　ポイント集計ロジック
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        val dataStorageDeliver = DataStorageDeliver()
+        val repository = Repository()
+        repository.saveListToPreference(vModel.getItemList(), this.applicationContext)
     }
 }
