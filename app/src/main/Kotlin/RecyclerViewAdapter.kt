@@ -40,7 +40,6 @@ class RecyclerViewAdapter(private var mList: List<String>)
     fun setListOfAdapter(_list: MutableList<String>) {
         this.mList = _list
     }
-
     class RecyclerViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView)
 
 

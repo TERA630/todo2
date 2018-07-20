@@ -8,4 +8,15 @@
     <string name="apply">決定</string>
     <string name="cancel">元に戻す</string>
     <string name="undefinedDate">----/--/--</string>
+
+    <string-array name="period_array">
+        <item>毎日</item>
+        <item>隔日</item>
+        <item>3日毎</item>
+        <item>4日毎</item>
+        <item>5日毎</item>
+        <item>6日毎</item>
+        <item>7日毎</item>
+    </string-array>
+
 </resources>
