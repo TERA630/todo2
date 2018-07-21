@@ -3,7 +3,6 @@ package com.example.yoshi.todo2
 import android.content.Context
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.internal.ArrayListSerializer
-import kotlinx.serialization.internal.StringSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
 
@@ -46,11 +45,11 @@ class Repository {
 
     fun loadListFromPreference(_context: Context): MutableList<ToDoItem> {
         val jsonString = loadStringFromPreference(ITEM_DATA, _context)
-        val toDoSerializer = ToDoItem::class.serializer()
-        val listSerializer = ArrayListSerializer(toDoSerializer)
         if (jsonString == EMPTY_ITEM) {
             return mutableListOf(ToDoItem("$EMPTY_ITEM"))
         } else {
+            val toDoSerializer = ToDoItem::class.serializer()
+            val listSerializer = ArrayListSerializer(toDoSerializer)
             return JSON.unquoted.parse(listSerializer, jsonString).toMutableList()
         }
     }

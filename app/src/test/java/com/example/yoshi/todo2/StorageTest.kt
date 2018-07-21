@@ -19,7 +19,7 @@ class RobolectricTest {
     }
     @Test
     fun test() {
-        val testList = mutableListOf<String>("fox", "dog", "cat")
+        val testList = mutableListOf<ToDoItem>(ToDoItem("fox"), ToDoItem("dog"), ToDoItem("cat"))
         val repository = Repository()
         repository.saveListToPreference(testList, mockedContext)
         val mList = repository.loadListFromPreference(mockedContext).toMutableList()

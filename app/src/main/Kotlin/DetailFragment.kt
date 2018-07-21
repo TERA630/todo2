@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +28,6 @@ class DetailFragment : Fragment() {
             safeArgs.itemNumber
         } ?: 0
         titleTxt.setText(vModel.getItemList()[itemNumber].title)
-
-        Log.i("test", "$vModel")
-
         applyBtn.setOnClickListener { v: View ->
             vModel.modifyItem(itemNumber, titleTxt.editableText.toString())
             val navController = Navigation.findNavController(v)

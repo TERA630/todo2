@@ -11,7 +11,7 @@ class MainViewModel : ViewModel() {
     fun initItems(_context: Context) {
         val repository = Repository()
         var mList = repository.loadListFromPreference(_context)
-        if (mList.equals(mutableListOf(EMPTY_ITEM))) {
+        if (mList.equals(mutableListOf(ToDoItem(EMPTY_ITEM)))) {
             val list = listOf("Wakeup",
                     "move the core of body",
                     "remember what to do",

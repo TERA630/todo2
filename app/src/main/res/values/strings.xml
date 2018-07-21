@@ -8,6 +8,7 @@
     <string name="apply">決定</string>
     <string name="cancel">元に戻す</string>
     <string name="undefinedDate">----/--/--</string>
+    <string name="archeved">達成数</string>
 
     <string-array name="period_array">
         <item>毎日</item>
