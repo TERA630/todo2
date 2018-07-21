@@ -26,16 +26,25 @@ class DetailFragment : Fragment() {
         val itemNumber = arguments?.let {
             val safeArgs = DetailFragmentArgs.fromBundle(it)
             safeArgs.itemNumber
-        } ?: 0
-        titleTxt.setText(vModel.getItemList()[itemNumber].title)
-        applyBtn.setOnClickListener { v: View ->
-            vModel.modifyItem(itemNumber, titleTxt.editableText.toString())
-            val navController = Navigation.findNavController(v)
-            navController.navigate(R.id.action_fragment_detail_to_launcher_home)
-        }
+        } ?: vModel.getItemList().size
+
         cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home))
 
-
+        if (itemNumber <= vModel.getItemList().lastIndex) {
+            titleTxt.setText(vModel.getItemList()[itemNumber].title)
+            applyBtn.setOnClickListener { v: View ->
+                vModel.modifyItem(itemNumber, titleTxt.editableText.toString())
+                val navController = Navigation.findNavController(v)
+                navController.navigate(R.id.action_fragment_detail_to_launcher_home)
+            }
+        } else {
+            titleTxt.setText("enter new item")
+            applyBtn.setOnClickListener { v: View ->
+                vModel.appendItem(titleTxt.editableText.toString())
+                val navController = Navigation.findNavController(v)
+                navController.navigate(R.id.action_fragment_detail_to_launcher_home)
+            }
+        }
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
         val monthOfYear = calendar.get(Calendar.MONTH)

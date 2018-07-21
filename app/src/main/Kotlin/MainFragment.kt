@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.main_fragment.*
 import org.koin.android.architecture.ext.sharedViewModel
 
@@ -31,6 +32,12 @@ class MainFragment : Fragment() {
         recyclerView.adapter = mAdapter
         initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
         recyclerView.setHasFixedSize(true)
+        fab.setOnClickListener { view ->
+            val navController = Navigation.findNavController(view)
+            val bundle = Bundle()
+            bundle.putInt("itemNumber", vModel.getItemList().size)
+            navController.navigate(R.id.action_launcher_home_to_detail, bundle)
+        }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

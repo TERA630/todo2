@@ -27,8 +27,8 @@ class MainViewModel : ViewModel() {
     fun appendItem(_newString: String) {
         val size = getItemList().size
         val mutableList = itemList.value
-        val newItem = ToDoItem(title = _newString)
-        mutableList?.add(size + 1, newItem)
+        val newItem = ToDoItem(title = "$_newString $size")
+        mutableList?.add(size, newItem)
     }
     fun getItemList(): MutableList<ToDoItem> = itemList.value ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
 
