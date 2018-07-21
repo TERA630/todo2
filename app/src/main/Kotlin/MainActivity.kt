@@ -1,8 +1,10 @@
 package com.example.yoshi.todo2
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import com.example.yoshi.todo2.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.architecture.ext.getViewModel
 
@@ -11,9 +13,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         vModel = getViewModel()
         vModel.initItems(this.applicationContext)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding.setLifecycleOwner(this@MainActivity)
+        binding.handler = vModel
         //　ToDo　ポイント集計ロジック
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -21,7 +25,6 @@ class MainActivity : AppCompatActivity() {
             // ToDo 新規アイテム追加
         }
     }
-
     override fun onPause() {
         super.onPause()
         val repository = Repository()
