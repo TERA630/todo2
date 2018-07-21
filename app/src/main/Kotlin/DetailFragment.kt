@@ -28,7 +28,7 @@ class DetailFragment : Fragment() {
             val safeArgs = DetailFragmentArgs.fromBundle(it)
             safeArgs.itemNumber
         } ?: 0
-        titleTxt.setText(vModel.getItemList()[itemNumber])
+        titleTxt.setText(vModel.getItemList()[itemNumber].title)
 
         Log.i("test", "$vModel")
 

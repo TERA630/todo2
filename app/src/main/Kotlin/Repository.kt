@@ -1,19 +1,29 @@
 package com.example.yoshi.todo2
 
 import android.content.Context
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.internal.ArrayListSerializer
 import kotlinx.serialization.internal.StringSerializer
 import kotlinx.serialization.json.JSON
+import kotlinx.serialization.serializer
 
 
 const val ITEM_DATA = "toDoItems"
 const val EMPTY_ITEM = "empty item"
 
-class Repository {
+@Serializable
+data class ToDoItem constructor(
+        var title: String = "thing to do",
+        var reward: Int = 1,
+        var isRoutain: Boolean = false,
+        var hasStartLine: Boolean = false,
+        var startLine: String = "----/--/--",
+        var hasDeadLine: Boolean = false,
+        var deadLine: String = "----/--/--",
+        var tagString: String = "home"
+)
 
-    fun listToJSON(_mutableList: MutableList<String>) {
-        val json: String = JSON.stringify(_mutableList)
-    }
+class Repository {
 
     fun saveStringToPreference(_key: String, _string: String, context: Context) {
         val preferences = context.getSharedPreferences(_key, Context.MODE_PRIVATE)
@@ -27,19 +37,21 @@ class Repository {
         return preferences?.getString(_key, EMPTY_ITEM) ?: EMPTY_ITEM
     }
 
-    fun saveListToPreference(_mList: MutableList<String>, _context: Context) {
-        val ListStringSerializer = ArrayListSerializer(StringSerializer)
-        val serializedStringList = JSON.unquoted.stringify(ListStringSerializer, _mList.toList())
+    fun saveListToPreference(_mList: MutableList<ToDoItem>, _context: Context) {
+        val toDoSerializer = ToDoItem::class.serializer()
+        val listSerializer = ArrayListSerializer(toDoSerializer)
+        val serializedStringList = JSON.unquoted.stringify(listSerializer, _mList.toList())
         saveStringToPreference(ITEM_DATA, serializedStringList, _context)
     }
 
-    fun loadListFromPreference(_context: Context): MutableList<String> {
+    fun loadListFromPreference(_context: Context): MutableList<ToDoItem> {
         val jsonString = loadStringFromPreference(ITEM_DATA, _context)
-        val ListStringSerializer = ArrayListSerializer(StringSerializer)
+        val toDoSerializer = ToDoItem::class.serializer()
+        val listSerializer = ArrayListSerializer(toDoSerializer)
         if (jsonString == EMPTY_ITEM) {
-            return mutableListOf("$EMPTY_ITEM")
+            return mutableListOf(ToDoItem("$EMPTY_ITEM"))
         } else {
-            return JSON.unquoted.parse(ListStringSerializer, jsonString).toMutableList()
+            return JSON.unquoted.parse(listSerializer, jsonString).toMutableList()
         }
     }
 }

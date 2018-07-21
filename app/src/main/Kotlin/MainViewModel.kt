@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel
 import android.content.Context
 
 class MainViewModel : ViewModel() {
-    val itemList = MutableLiveData<MutableList<String>>()
+    val itemList = MutableLiveData<MutableList<ToDoItem>>()
     var earnedPoints: Int = 0
 
     fun initItems(_context: Context) {
@@ -15,25 +15,22 @@ class MainViewModel : ViewModel() {
             val list = listOf("Wakeup",
                     "move the core of body",
                     "remember what to do",
-                    "get up",
-                    "wash the face",
-                    "change the cloth",
-                    "make protein shake",
                     "eat and drink",
                     "go out",
                     "run if I can")
-            itemList.value = list.toMutableList()
+            val toDoList = List(6,{index -> ToDoItem(title = list[index])})
+            itemList.value = toDoList.toMutableList()
         } else {
-            itemList.value = mList
+            itemList.value = mList.toMutableList()
         }
     }
     fun appendItem(_newString: String) {
         val size = getItemList().size
         val mutableList = itemList.value
-        mutableList?.add(size + 1, _newString)
+        val newItem = ToDoItem(title = _newString)
+        mutableList?.add(size + 1, newItem)
     }
-
-    fun getItemList(): MutableList<String> = itemList.value ?: listOf("not defined").toMutableList()
+    fun getItemList(): MutableList<ToDoItem> = itemList.value ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
 
     fun deleteItem(index: Int) {
         val mList = getItemList()
@@ -43,7 +40,7 @@ class MainViewModel : ViewModel() {
 
     fun modifyItem(index: Int, _newString: String) {
         val mList = getItemList()
-        mList[index] = _newString
+        mList[index].title = _newString
         itemList.value = mList
     }
 
