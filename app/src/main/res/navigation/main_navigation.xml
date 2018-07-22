@@ -8,7 +8,7 @@
         android:id="@+id/launcher_home"
         android:name="com.example.yoshi.todo2.MainFragment"
         android:label="Home"
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/fragment_main">
 
         <action
             android:id="@+id/action_launcher_home_to_detail"
