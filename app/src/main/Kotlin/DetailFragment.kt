@@ -1,9 +1,9 @@
 package com.example.yoshi.todo2
-
 import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +12,11 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.architecture.ext.sharedViewModel
-
 class DetailFragment : Fragment() {
     private val vModel by sharedViewModel<MainViewModel>()
+    private lateinit var stashItem: ToDoItem
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,13 +27,19 @@ class DetailFragment : Fragment() {
             safeArgs.itemNumber
         } ?: vModel.getItemList().size
 
-        cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home))
+        // itemNumber<= アイテム数は編集モード､　itemNumber = アイテム数は追加モード
 
         if (itemNumber <= vModel.getItemList().lastIndex) {
             titleTxt.setText(vModel.getItemList()[itemNumber].title)
+            stashCurrentItem(itemNumber)
             applyBtn.setOnClickListener { v: View ->
                 vModel.modifyItem(itemNumber, titleTxt.editableText.toString())
                 val navController = Navigation.findNavController(v)
+                navController.navigate(R.id.action_fragment_detail_to_launcher_home)
+            }
+            cancelBtn.setOnClickListener { view: View ->
+                popStashedItem(itemNumber)
+                val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_fragment_detail_to_launcher_home)
             }
         } else {
@@ -44,6 +49,7 @@ class DetailFragment : Fragment() {
                 val navController = Navigation.findNavController(v)
                 navController.navigate(R.id.action_fragment_detail_to_launcher_home)
             }
+            cancelBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_fragment_detail_to_launcher_home))
         }
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -60,7 +66,18 @@ class DetailFragment : Fragment() {
             val deadDatePicker = DatePickerDialog(context, deadDataSetListener, year, monthOfYear, dayOfMonth)
             deadDatePicker.show()
         }
+        }
+
+    private fun stashCurrentItem(itemNumber: Int) {
+        stashItem = vModel.getItemList()[itemNumber]
+
     }
+
+    private fun popStashedItem(itemNumber: Int) {
+        vModel.getItemList()[itemNumber] = stashItem
+        Log.i("test", "item ${itemNumber + 1} was reverted")
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(): DetailFragment {
