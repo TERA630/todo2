@@ -15,12 +15,15 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.architecture.ext.sharedViewModel
 
 /*  MVC/MVP - View
-    データ変更を伴うユーザーの入力イベントは　Databinding使用  */
+    データ変更を伴うユーザーの入力イベントは　DataBinding使用  */
 class DetailFragment : Fragment() {
     private val vModel by sharedViewModel<MainViewModel>()
+    private lateinit var binding: FragmentDetailBinding
     private lateinit var stashItem: ToDoItem
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentDetailBinding.inflate(inflater, container, false)
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
+        binding.setLifecycleOwner(this@DetailFragment)
         val itemNumber = arguments?.let {
             val safeArgs = DetailFragmentArgs.fromBundle(it)
             safeArgs.itemNumber
@@ -29,7 +32,6 @@ class DetailFragment : Fragment() {
             stashCurrentItem(itemNumber)
             vModel.getItemList()[itemNumber]
         } else {
-
             ToDoItem("enter new item ${itemNumber + 1}")
         }
         return binding.root
@@ -37,29 +39,27 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val itemNumber = arguments?.let {
             val safeArgs = DetailFragmentArgs.fromBundle(it)
             safeArgs.itemNumber
         } ?: vModel.getItemList().size
 
         // itemNumber<= アイテム数は編集モード､　itemNumber = アイテム数は追加モード
-
         if (itemNumber <= vModel.getItemList().lastIndex) {
             applyBtn.setOnClickListener { v: View ->
-                vModel.modifyItem(itemNumber, titleTxt.editableText.toString())
                 val navController = Navigation.findNavController(v)
                 navController.navigate(R.id.action_fragment_detail_to_launcher_home)
             }
             cancelBtn.setOnClickListener { view: View ->
-                popStashedItem(itemNumber)
+                unStashItem(itemNumber)
                 val navController = Navigation.findNavController(view)
                 navController.navigate(R.id.action_fragment_detail_to_launcher_home)
             }
         } else {
             titleTxt.setText("enter new item")
             applyBtn.setOnClickListener { v: View ->
-                vModel.appendItem(titleTxt.editableText.toString())
+                val newItem = binding.item ?: ToDoItem(EMPTY_ITEM)
+                vModel.appendItem(newItem)
                 val navController = Navigation.findNavController(v)
                 navController.navigate(R.id.action_fragment_detail_to_launcher_home)
             }
@@ -83,12 +83,11 @@ class DetailFragment : Fragment() {
     }
 
     private fun stashCurrentItem(itemNumber: Int) {
-        stashItem = vModel.getItemList()[itemNumber]
-
+        stashItem = vModel.getItemList()[itemNumber].copy()
     }
 
-    private fun popStashedItem(itemNumber: Int) {
-        vModel.getItemList()[itemNumber] = stashItem
+    private fun unStashItem(itemNumber: Int) {
+        vModel.getItemList()[itemNumber] = stashItem.copy()
         Log.i("test", "item ${itemNumber + 1} was reverted")
     }
 

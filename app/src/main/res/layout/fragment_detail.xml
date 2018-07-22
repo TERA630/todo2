@@ -5,11 +5,9 @@
     tools:ignore="ContentDescription">
 
     <data>
-
         <variable
             name="handler"
             type="com.example.yoshi.todo2.MainViewModel" />
-
         <variable
             name="item"
             type="com.example.yoshi.todo2.ToDoItem" />
@@ -25,9 +23,10 @@
                 android:layout_weight="3"
                 android:ems="10"
                 android:inputType="text|textPersonName"
-                android:text="@{item.title}"
+                android:text="@={item.title}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:text="@string/undefinedDate" />
             <ImageButton
                 android:id="@+id/applyBtn"
                 android:layout_width="@dimen/imgBtn_size"
@@ -50,12 +49,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:entries="@array/period_array" />
-            <Switch
+
+            <ToggleButton
                 android:id="@+id/isRoutineSw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:switchMinWidth="@android:dimen/app_icon_size" />
+                android:checked="@={item.routine}" />
         </TableRow>
         <TableRow>
             <EditText
@@ -68,7 +68,8 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:visibility="visible"
-                tools:text="home,exercise" />
+                android:text="@={item.tagString}"
+                tools:text="home" />
         </TableRow>
         <TableRow>
             <TextView
@@ -76,21 +77,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="@string/undefinedDate"
+                android:text="@={item.startLine}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:text="@string/undefinedDate" />
             <ImageButton
                 android:id="@+id/startCal"
                 android:layout_width="@dimen/imgBtn_size"
                 android:layout_height="@dimen/imgBtn_size"
                 android:layout_weight="1"
-                android:contentDescription="TODO"
                 android:src="@android:drawable/ic_menu_day" />
-            <Switch
+
+            <ToggleButton
                 android:id="@+id/hasStartSw"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="@={item.hasStartLine}"
                 android:switchMinWidth="@android:dimen/app_icon_size" />
         </TableRow>
         <TableRow>
@@ -99,33 +102,34 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="@string/undefinedDate"
+                android:text="@={item.deadLine}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:text="@string/undefinedDate" />
             <ImageButton
                 android:id="@+id/deadCal"
                 android:layout_width="@dimen/imgBtn_size"
                 android:layout_height="@dimen/imgBtn_size"
                 android:layout_weight="1"
                 android:src="@android:drawable/ic_menu_day" />
-            <Switch
+
+            <ToggleButton
                 android:id="@+id/hasDeadSw"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:checked="@={item.hasDeadLine}"
                 android:switchMinWidth="@android:dimen/app_icon_size" />
         </TableRow>
         <TableRow>
             <RatingBar
                 android:id="@+id/rewardRate"
-                android:layout_width="367dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:max="5"
-                android:numStars="1"
-                android:rating="1"
-                android:stepSize="1"
-                android:visibility="visible" />
+                android:isIndicator="true"
+                android:numStars="6"
+                android:rating="@={item.reward}"
+                android:stepSize="1" />
         </TableRow>
     </TableLayout>
 </layout>

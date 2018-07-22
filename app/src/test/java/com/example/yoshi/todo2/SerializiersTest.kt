@@ -1,14 +1,12 @@
 package com.example.yoshi.todo2
 
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.internal.ArrayListSerializer
 import kotlinx.serialization.internal.IntSerializer
 import kotlinx.serialization.internal.StringSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -41,7 +39,7 @@ class SerializersTest : Throwable() {
     @Test
     fun toDoSerializationTest() {
         // List<toDoItem>
-        val testToDoItem = ToDoItem(isRoutain = true,hasStartLine = true,startLine = "2018/7/21")
+        val testToDoItem = ToDoItem(isRoutine = true, hasStartLine = true, startLine = "2018/7/21")
         val lToDo: KSerializer<ToDoItem> = ToDoItem::class.serializer()
         val serializedToDoItem = JSON.unquoted.stringify(lToDo,testToDoItem)
         val deserializedItem = JSON.unquoted.parse(lToDo,serializedToDoItem)

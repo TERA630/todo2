@@ -14,7 +14,7 @@ const val EMPTY_ITEM = "empty item"
 data class ToDoItem constructor(
         var title: String = "thing to do",
         var reward: Int = 1,
-        var isRoutain: Boolean = false,
+        var isRoutine: Boolean = false,
         var hasStartLine: Boolean = false,
         var startLine: String = "----/--/--",
         var hasDeadLine: Boolean = false,
@@ -24,14 +24,14 @@ data class ToDoItem constructor(
 
 class Repository {
 
-    fun saveStringToPreference(_key: String, _string: String, context: Context) {
+    private fun saveStringToPreference(_key: String, _string: String, context: Context) {
         val preferences = context.getSharedPreferences(_key, Context.MODE_PRIVATE)
         val preferenceEditor = preferences.edit()
         preferenceEditor.putString(_key, _string)
         preferenceEditor.apply()
     }
 
-    fun loadStringFromPreference(_key: String, context: Context): String {
+    private fun loadStringFromPreference(_key: String, context: Context): String {
         val preferences = context.getSharedPreferences(_key, Context.MODE_PRIVATE)
         return preferences?.getString(_key, EMPTY_ITEM) ?: EMPTY_ITEM
     }

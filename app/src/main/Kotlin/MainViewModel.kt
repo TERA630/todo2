@@ -24,26 +24,19 @@ class MainViewModel : ViewModel() {
             itemList.value = mList.toMutableList()
         }
     }
-    fun appendItem(_newString: String) {
+
+    fun appendItem(newItem: ToDoItem) {
         val size = getItemList().size
-        val mutableList = itemList.value
-        val newItem = ToDoItem(title = "$_newString $size")
-        mutableList?.add(size, newItem)
+        val mList = getItemList()
+        mList.add(size, newItem)
+        itemList.value = mList
     }
     fun getItemList(): MutableList<ToDoItem> = itemList.value ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
-
     fun deleteItem(index: Int) {
         val mList = getItemList()
         mList.removeAt(index)
         itemList.value = mList
     }
-
-    fun modifyItem(index: Int, _newString: String) {
-        val mList = getItemList()
-        mList[index].title = _newString
-        itemList.value = mList
-    }
-
     fun swapItem(fromPosition: Int, toPosition: Int) {
         val list = getItemList()
         val str = list[toPosition]

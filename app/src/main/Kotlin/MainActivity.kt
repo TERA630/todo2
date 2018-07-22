@@ -1,9 +1,7 @@
 package com.example.yoshi.todo2
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.example.yoshi.todo2.databinding.ActivityMainBinding
 import org.koin.android.architecture.ext.getViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -13,10 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         vModel = getViewModel()
         vModel.initItems(this.applicationContext)
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        binding.setLifecycleOwner(this@MainActivity)
-        binding.handler = vModel
-        //　ToDo　ポイント集計ロジック
+        setContentView(R.layout.activity_main)
     }
     override fun onPause() {
         super.onPause()
