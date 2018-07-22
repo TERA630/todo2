@@ -10,15 +10,31 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.navigation.Navigation
+import com.example.yoshi.todo2.databinding.FragmentDetailBinding
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.architecture.ext.sharedViewModel
+
+/*  MVC/MVP - View
+    データ変更を伴うユーザーの入力イベントは　Databinding使用  */
 class DetailFragment : Fragment() {
     private val vModel by sharedViewModel<MainViewModel>()
     private lateinit var stashItem: ToDoItem
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        val binding = FragmentDetailBinding.inflate(inflater, container, false)
+        val itemNumber = arguments?.let {
+            val safeArgs = DetailFragmentArgs.fromBundle(it)
+            safeArgs.itemNumber
+        } ?: vModel.getItemList().size
+        binding.item = if (itemNumber <= vModel.getItemList().lastIndex) {
+            stashCurrentItem(itemNumber)
+            vModel.getItemList()[itemNumber]
+        } else {
+
+            ToDoItem("enter new item ${itemNumber + 1}")
+        }
+        return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -30,8 +46,6 @@ class DetailFragment : Fragment() {
         // itemNumber<= アイテム数は編集モード､　itemNumber = アイテム数は追加モード
 
         if (itemNumber <= vModel.getItemList().lastIndex) {
-            titleTxt.setText(vModel.getItemList()[itemNumber].title)
-            stashCurrentItem(itemNumber)
             applyBtn.setOnClickListener { v: View ->
                 vModel.modifyItem(itemNumber, titleTxt.editableText.toString())
                 val navController = Navigation.findNavController(v)
@@ -66,7 +80,7 @@ class DetailFragment : Fragment() {
             val deadDatePicker = DatePickerDialog(context, deadDataSetListener, year, monthOfYear, dayOfMonth)
             deadDatePicker.show()
         }
-        }
+    }
 
     private fun stashCurrentItem(itemNumber: Int) {
         stashItem = vModel.getItemList()[itemNumber]
@@ -93,5 +107,4 @@ class DetailFragment : Fragment() {
             _textView.text = "$year/${month + 1}/$dayOfMonth"
         }
     }
-
 }

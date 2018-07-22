@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".DetailFragment"
     tools:ignore="ContentDescription">
 
+    <data>
+
+        <variable
+            name="handler"
+            type="com.example.yoshi.todo2.MainViewModel" />
+
+        <variable
+            name="item"
+            type="com.example.yoshi.todo2.ToDoItem" />
+    </data>
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
@@ -17,7 +25,7 @@
                 android:layout_weight="3"
                 android:ems="10"
                 android:inputType="text|textPersonName"
-                android:text="Item name"
+                android:text="@{item.title}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:visibility="visible" />
             <ImageButton
@@ -120,4 +128,4 @@
                 android:visibility="visible" />
         </TableRow>
     </TableLayout>
-</FrameLayout>
+</layout>

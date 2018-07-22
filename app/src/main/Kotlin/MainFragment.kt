@@ -9,9 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
-
 /*  MVC/MVP - View
     Controller or Presenter から　Listを貰い､表示する｡
     データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡  */
@@ -21,7 +20,7 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +40,6 @@ class MainFragment : Fragment() {
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.i("test", " On Activity Created $vModel")
         vModel.itemList.observe(this@MainFragment, Observer {
             Log.i("test", "${this.javaClass}@${this.hashCode()} listened the change ")
             mAdapter.setListOfAdapter(vModel.getItemList())
