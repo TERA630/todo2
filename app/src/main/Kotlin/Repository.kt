@@ -14,6 +14,7 @@ const val EMPTY_ITEM = "empty item"
 data class ToDoItem constructor(
         var title: String = "thing to do",
         var reward: Int = 1,
+        var isDone: Boolean = false,
         var isRoutine: Boolean = false,
         var hasStartLine: Boolean = false,
         var startLine: String = "----/--/--",
