@@ -8,6 +8,9 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowApplication
+import org.robolectric.Robolectric
+
+
 
 @RunWith(RobolectricTestRunner::class)
 @Config(minSdk = 23)
@@ -16,6 +19,8 @@ class RobolectricTest {
     @Before
     fun setup() {
         mockedContext = ShadowApplication.getInstance().applicationContext // RuntimeEnvironment.application
+        val activity = Robolectric.setupActivity(MainActivity::class.java)
+
     }
     @Test
     fun test() {

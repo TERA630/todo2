@@ -50,13 +50,13 @@ class DetailFragment : Fragment() {
                 val navController = Navigation.findNavController(v)
                 navController.navigate(R.id.action_fragment_detail_to_launcher_home)
             }
-            cancelBtn.setOnClickListener { view: View ->
+            cancelBtn.setOnClickListener { cancelBtnView: View ->
                 unStashItem(itemNumber)
-                val navController = Navigation.findNavController(view)
+                val navController = Navigation.findNavController(cancelBtnView)
                 navController.navigate(R.id.action_fragment_detail_to_launcher_home)
             }
         } else {
-            titleTxt.setText("enter new item")
+            titleTxt.setText(R.string.enterNewItem)
             applyBtn.setOnClickListener { v: View ->
                 val newItem = binding.item ?: ToDoItem(EMPTY_ITEM)
                 vModel.appendItem(newItem)
