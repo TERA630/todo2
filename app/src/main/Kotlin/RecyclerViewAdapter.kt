@@ -3,6 +3,7 @@ package com.example.yoshi.todo2
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class RecyclerViewAdapter(private var mList: List<ToDoItem>,private val vModel:M
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         // holder.itemView.itemTile.text = mList[position].title
         (holder as ItemViewHolder).binding.itemNumber = position
+        (holder as ItemViewHolder).binding.periodViewer.text = "${mList[position].startLine} ～${mList[position].deadLine} "
         val bundle = Bundle()
         bundle.putInt("itemNumber", position)
         holder.itemView.editBtn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_launcher_home_to_detail, bundle))
@@ -32,6 +34,7 @@ class RecyclerViewAdapter(private var mList: List<ToDoItem>,private val vModel:M
         val rowView = LayoutInflater.from(parent.context).inflate(R.layout.list_items, parent,false)
         val itemVH = ItemViewHolder(rowView)
         itemVH.binding.itemList=mList.toList()
+    //    Log.i("test", "RowView ${rowView.hashCode()} has ViewHolder ${itemVH.hashCode()} and binding ${itemVH.binding.hashCode()}");
         return itemVH }
     /*
      fun move(_fromPosition: Int, _toPosition: Int) {
@@ -46,6 +49,4 @@ class RecyclerViewAdapter(private var mList: List<ToDoItem>,private val vModel:M
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val binding = ListItemsBinding.bind(itemView)
     }
-
-
 }

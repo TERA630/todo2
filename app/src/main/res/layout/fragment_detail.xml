@@ -38,7 +38,6 @@
             app:layout_constraintEnd_toStartOf="@+id/applyBtn"
             app:layout_constraintStart_toEndOf="@+id/doneChkBox"
             app:layout_constraintTop_toTopOf="parent"
-            app:taskDone="@{item.done}"
             tools:text="@string/enterNewItem" />
 
         <ImageButton

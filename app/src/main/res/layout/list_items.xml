@@ -44,17 +44,9 @@
         android:id="@+id/editBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf = "@+id/delButton"
+        app:layout_constraintEnd_toEndOf = "parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@android:drawable/ic_menu_edit"
         tools:src="@android:drawable/ic_menu_edit" />
-
-    <ImageButton
-        android:id="@+id/delButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf = "parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
 </android.support.constraint.ConstraintLayout>
 </layout>
