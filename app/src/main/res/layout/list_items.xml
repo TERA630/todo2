@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:layout_marginBottom="1dp"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="horizontal"
-    android:padding="4dp">
-
-        <CheckBox
-            android:id="@+id/itemTile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            tools:text="To Do Items" />
-
-    <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/editBtn"
-        android:layout_width="@dimen/imgBtn_size"
+    android:orientation="horizontal">
+    <CheckBox
+        android:id="@+id/itemTile"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintTop_toTopOf = "parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="To Do Items" />
+    <TextView
+        android:id="@+id/periodViewer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemTile"
+        tools:text="2018/07/25～2018/07/26"/>
+    <ImageButton
+        android:id="@+id/editBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf = "@+id/delButton"
+        app:layout_constraintTop_toTopOf="parent"
         android:src="@android:drawable/ic_menu_edit"
         tools:src="@android:drawable/ic_menu_edit" />
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="@dimen/imgBtn_size"
+        android:id="@+id/delButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf = "parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete" />
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

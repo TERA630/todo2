@@ -31,8 +31,8 @@ class MainFragment : Fragment() {
         recyclerView.adapter = mAdapter
         initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
         recyclerView.setHasFixedSize(true)
-        fab.setOnClickListener { view ->
-            val navController = Navigation.findNavController(view)
+        fab.setOnClickListener { fabBtnView ->
+            val navController = Navigation.findNavController(fabBtnView)
             val bundle = Bundle()
             bundle.putInt("itemNumber", vModel.getItemList().size)
             navController.navigate(R.id.action_launcher_home_to_detail, bundle)
@@ -46,13 +46,11 @@ class MainFragment : Fragment() {
             mAdapter.notifyDataSetChanged()
         })
     }
-
     private fun initItemDragHelper(adapter: RecyclerViewAdapter, _recyclerView: RecyclerView) {
         val mIth = ItemTouchHelper(object : ItemTouchHelper.Callback() {
 
             override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int =
                     makeMovementFlags((ItemTouchHelper.UP + ItemTouchHelper.DOWN), ItemTouchHelper.RIGHT)
-
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
                 vModel.swapItem(viewHolder.adapterPosition, target.adapterPosition)
                 adapter.notifyItemMoved(viewHolder.adapterPosition, target.adapterPosition)

@@ -16,8 +16,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <android.support.v7.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/doneChkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,12 +28,14 @@
 
         <EditText
             android:id="@+id/titleTxt"
-            android:layout_width="208dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:inputType="text|textPersonName"
             android:text="@={item.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toStartOf="@+id/applyBtn"
             app:layout_constraintStart_toEndOf="@+id/doneChkBox"
             app:layout_constraintTop_toTopOf="parent"
             app:taskDone="@{item.done}"
