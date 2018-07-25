@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".DetailFragment"
+    tools:ignore="ContentDescription">
+    <data>
+        <import type="com.example.yoshi.todo2.ToDoItem"/>
+        <import type="java.util.List"/>
+        <variable name="handler"
+            type="com.example.yoshi.todo2.MainViewModel" />
+        <variable name="itemNumber"
+            type="Integer"/>
+        <variable name="itemList"
+            type="List&lt;ToDoItem&gt;"/>
+    </data>
+
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="64dp"
     android:clickable="true"
@@ -12,6 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:checked="@={itemList[itemNumber].done}"
+        android:text = "@{itemList[itemNumber].title}"
         app:layout_constraintTop_toTopOf = "parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="To Do Items" />
@@ -41,3 +57,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 </android.support.constraint.ConstraintLayout>
+</layout>

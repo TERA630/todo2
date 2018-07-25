@@ -10,6 +10,7 @@
     <string name="undefinedDate">----/--/--</string>
     <string name="archeved">達成数</string>
     <string name="enterNewItem">新しいアイテムを入力</string>
+    <string name="getPoint">完了クリアし達成確認</string>
     <string-array name="period_array">
         <item>毎日</item>
         <item>隔日</item>

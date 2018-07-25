@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
         val recyclerView = recycler_view
 
         val list = vModel.getItemList()
-        mAdapter = RecyclerViewAdapter(mList = list)
+        mAdapter = RecyclerViewAdapter(mList = list,vModel = vModel)
         recyclerView.adapter = mAdapter
         initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
         recyclerView.setHasFixedSize(true)
