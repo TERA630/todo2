@@ -6,9 +6,8 @@ import android.text.Spanned
 import android.text.style.StrikethroughSpan
 import android.util.Log
 import android.widget.CheckBox
-import android.widget.TextView
 
-@BindingAdapter("android:Checked", "android:text", requireAll = true)
+@BindingAdapter("android:checked", "android:text", requireAll = true)
 fun CheckBox.setSpannableText(doneChecked: Boolean, _text: String) {
     Log.i("test", "$doneChecked with $_text:setSpannableText")
     if (doneChecked) {

@@ -22,7 +22,6 @@ data class ToDoItem constructor(
         var deadLine: String = "----/--/--",
         var tagString: String = "home"
 )
-
 class Repository {
 
     private fun saveStringToPreference(_key: String, _string: String, context: Context) {

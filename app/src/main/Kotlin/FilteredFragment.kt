@@ -1,55 +1,46 @@
 package com.example.yoshi.todo2
-import android.arch.lifecycle.Observer
+
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_filtered.*
 import org.koin.android.architecture.ext.sharedViewModel
-/*  MVC/MVP - View
-    Controller or Presenter から　Listを貰い､表示する｡
-    データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡  */
-class MainFragment : Fragment() {
-    private lateinit var mAdapter: RecyclerViewAdapter
-    private val vModel by sharedViewModel<MainViewModel>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+class FilteredFragment : Fragment() {
+    private val vModel by sharedViewModel<MainViewModel>()
+    private lateinit var mAdapter: RecyclerViewAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = recycler_view
-
-        val list = vModel.getItemList()
-
-
-
-        mAdapter = RecyclerViewAdapter(mList = list)
+        val recyclerView = recycler_viewOfFilter
+        val filteredList = filterItemByTag("home")
+        mAdapter = RecyclerViewAdapter(mList = filteredList, mListMap = filterToRawMap)
         recyclerView.adapter = mAdapter
-        initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
+
+        //       initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
         recyclerView.setHasFixedSize(true)
-        fab.setOnClickListener { fabBtnView ->
-            val navController = Navigation.findNavController(fabBtnView)
-            val bundle = Bundle()
-            bundle.putInt("itemNumber", vModel.getItemList().size)
-            navController.navigate(R.id.action_launcher_home_to_detail, bundle)
+        //        fab.setOnClickListener { fabBtnView ->
+        //           val navController = Navigation.findNavController(fabBtnView)
+//            val bundle = Bundle()
+//            bundle.putInt("itemNumber", vModel.getItemList().size)
+//            navController.navigate(R.id.action_launcher_home_to_detail, bundle)
+    }
+
+    fun filterItemByTag(filterString: String): Map<Int, Int> {
+        val rawList = vModel.getItemList()
+        var filteredIndex = 0
+        for (i in 0..rawList.lastIndex) {
+            if (rawList[i].tagString contains "home") {
+                filteredList[filteredIndex].rawId = i
+                filteredList[filteredIndex].item = rawList[i].copy()
+            }
+            return filteredList.toList()
         }
+        return filteredList
     }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        vModel.itemList.observe(this@MainFragment, Observer {
-            Log.i("test", "${this.javaClass}@${this.hashCode()} listened the change ")
-            mAdapter.setListOfAdapter(vModel.getItemList())
-            mAdapter.notifyDataSetChanged()
-        })
-    }
-    private fun initItemDragHelper(adapter: RecyclerViewAdapter, _recyclerView: RecyclerView) {
+
+
+/*    private fun initItemDragHelper(adapter: RecyclerViewAdapter, _recyclerView: RecyclerView) {
         val mIth = ItemTouchHelper(object : ItemTouchHelper.Callback() {
 
             override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int =
@@ -79,5 +70,5 @@ class MainFragment : Fragment() {
             }
         })
         mIth.attachToRecyclerView(_recyclerView)
-    }
+    } */
 }

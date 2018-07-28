@@ -17,6 +17,9 @@
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
             app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_launcher_home_to_filteredFragment"
+            app:destination="@id/filteredFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_detail"
@@ -35,5 +38,22 @@
             android:name="itemNumber"
             android:defaultValue="0"
             app:type="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/filteredFragment"
+        android:name="com.example.yoshi.todo2.FilteredFragment"
+        android:label="FilteredFragment">
+        <action
+            android:id="@+id/action_filteredFragment_to_launcher_home"
+            app:destination="@id/launcher_home"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/launcher_home" />
+        <argument
+            android:name="tagFilter"
+            android:defaultValue="home"
+            app:type="string" />
     </fragment>
 </navigation>

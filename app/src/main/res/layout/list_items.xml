@@ -5,14 +5,15 @@
     tools:context=".DetailFragment"
     tools:ignore="ContentDescription">
     <data>
-        <import type="com.example.yoshi.todo2.ToDoItem"/>
+
+        <import type="com.example.yoshi.todo2.FilteredToDoItem" />
         <import type="java.util.List"/>
         <variable name="handler"
             type="com.example.yoshi.todo2.MainViewModel" />
         <variable name="itemNumber"
             type="Integer"/>
         <variable name="itemList"
-            type="List&lt;ToDoItem&gt;"/>
+            type="List&lt;FilteredToDoItem&gt;" />
     </data>
 
 <android.support.constraint.ConstraintLayout
@@ -26,8 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:checked="@={itemList[itemNumber].done}"
-        android:text = "@{itemList[itemNumber].title}"
+        android:checked="@={itemList[itemNumber].item.done}"
+        android:text="@{itemList[itemNumber].item.title}"
         app:layout_constraintTop_toTopOf = "parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="To Do Items" />
