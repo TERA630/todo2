@@ -22,8 +22,12 @@ data class ToDoItem constructor(
         var deadLine: String = "----/--/--",
         var tagString: String = "home"
 )
-class Repository {
+class FileteredToDoItem constructor(
+        var unFilter : Int = 0,
+        var item :ToDoItem= ToDoItem()
+)
 
+class Repository {
     private fun saveStringToPreference(_key: String, _string: String, context: Context) {
         val preferences = context.getSharedPreferences(_key, Context.MODE_PRIVATE)
         val preferenceEditor = preferences.edit()

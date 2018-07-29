@@ -33,7 +33,7 @@ class SerializersTest : Throwable() {
         val ls = ArrayListSerializer(s)
         val serializedStringList = JSON.unquoted.stringify(ls, testStringList)
         assertEquals("[dog,cat,bird,fox]", serializedStringList)
-        val deserializedStringList = JSON.unquoted.parse<List<String>>(ls, serializedStringList)
+        val deserializedStringList = JSON.unquoted.parse(ls, serializedStringList)
         assertEquals(testStringList, deserializedStringList)
     }
     @Test

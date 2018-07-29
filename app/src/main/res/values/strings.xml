@@ -20,5 +20,12 @@
         <item>6日毎</item>
         <item>7日毎</item>
     </string-array>
-
+    <string-array name="default_todoItem">
+        <item>Stretch Core of Body</item>
+        <item>remember what to Do</item>
+        <item>Eat and drink</item>
+        <item>Go out</item>
+        <item>run if I can</item>
+        <item>Make bed clean</item>
+    </string-array>
 </resources>

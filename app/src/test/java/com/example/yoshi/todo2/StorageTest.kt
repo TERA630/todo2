@@ -15,20 +15,13 @@ import org.robolectric.Robolectric
 @RunWith(RobolectricTestRunner::class)
 @Config(minSdk = 23)
 class RobolectricTest {
-    private lateinit var mockedContext: Context
-    @Before
-    fun setup() {
-        mockedContext = ShadowApplication.getInstance().applicationContext // RuntimeEnvironment.application
-        val activity = Robolectric.setupActivity(MainActivity::class.java)
-
-    }
     @Test
     fun test() {
-        val testList = mutableListOf<ToDoItem>(ToDoItem("fox"), ToDoItem("dog"), ToDoItem("cat"))
-        val repository = Repository()
-        repository.saveListToPreference(testList, mockedContext)
-        val mList = repository.loadListFromPreference(mockedContext).toMutableList()
-        assertEquals(testList, mList)
+        val mockedContext = ShadowApplication.getInstance().applicationContext // RuntimeEnvironment.application
+        val activity = Robolectric.setupActivity(MainActivity::class.java)
+        val res = mockedContext.resources
+        val defaultItemTitle = res.getStringArray(R.array.default_todoItem)
+        val toDoList = List(6,{index -> ToDoItem(title = defaultItemTitle[index])})
     }
 
 }

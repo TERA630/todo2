@@ -3,6 +3,7 @@ package com.example.yoshi.todo2
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import android.content.res.Resources
 
 class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
@@ -12,19 +13,14 @@ class MainViewModel : ViewModel() {
         val repository = Repository()
         var mList = repository.loadListFromPreference(_context)
         if (mList.equals(mutableListOf(ToDoItem(EMPTY_ITEM)))) {
-            val list = listOf("Wakeup",
-                    "move the core of body",
-                    "remember what to do",
-                    "eat and drink",
-                    "go out",
-                    "run if I can")
-            val toDoList = List(6,{index -> ToDoItem(title = list[index])})
+            val res = _context.resources
+            val defaultItemTitle = res.getStringArray(R.array.default_todoItem)
+            val toDoList = List(6,{index -> ToDoItem(title = defaultItemTitle[index])})
             itemList.value = toDoList.toMutableList()
         } else {
             itemList.value = mList.toMutableList()
         }
     }
-
     fun appendItem(newItem: ToDoItem) {
         val size = getItemList().size
         val mList = getItemList()
