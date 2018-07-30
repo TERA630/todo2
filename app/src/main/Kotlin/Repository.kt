@@ -6,7 +6,6 @@ import kotlinx.serialization.internal.ArrayListSerializer
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.serializer
 
-
 const val ITEM_DATA = "toDoItems"
 const val EMPTY_ITEM = "empty item"
 
@@ -22,9 +21,10 @@ data class ToDoItem constructor(
         var deadLine: String = "----/--/--",
         var tagString: String = "home"
 )
-class FileteredToDoItem constructor(
-        var unFilter : Int = 0,
-        var item :ToDoItem= ToDoItem()
+
+class FilteredToDoItem constructor(
+        var unFilter: Int = 0,
+        var item: ToDoItem = ToDoItem()
 )
 
 class Repository {

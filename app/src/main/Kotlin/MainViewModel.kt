@@ -3,7 +3,6 @@ package com.example.yoshi.todo2
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
-import android.content.res.Resources
 
 class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
@@ -15,7 +14,7 @@ class MainViewModel : ViewModel() {
         if (mList.equals(mutableListOf(ToDoItem(EMPTY_ITEM)))) {
             val res = _context.resources
             val defaultItemTitle = res.getStringArray(R.array.default_todoItem)
-            val toDoList = List(6,{index -> ToDoItem(title = defaultItemTitle[index])})
+            val toDoList = List(6, { index -> ToDoItem(title = defaultItemTitle[index]) })
             itemList.value = toDoList.toMutableList()
         } else {
             itemList.value = mList.toMutableList()
@@ -27,7 +26,6 @@ class MainViewModel : ViewModel() {
         mList.add(size, newItem)
         itemList.value = mList
     }
-    fun getItemList(): MutableList<ToDoItem> = itemList.value ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
     fun deleteItem(index: Int) {
         val mList = getItemList()
         mList.removeAt(index)
@@ -39,5 +37,20 @@ class MainViewModel : ViewModel() {
         list[toPosition] = list[fromPosition]
         list[fromPosition] = str
         itemList.value = list
+    }
+
+    fun getItemList(): MutableList<ToDoItem> = itemList.value
+            ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
+
+    fun getItemListWithTag(filterStr: String): MutableList<FilteredToDoItem> {
+        val rawList = getItemList()
+        val regFilterStr = Regex(filterStr)
+        var filteredList: MutableList<FilteredToDoItem> = emptyList<FilteredToDoItem>().toMutableList()
+        for (i in 0..rawList.lastIndex) {
+            if (rawList[i].tagString.contains(regFilterStr)) {
+                filteredList.add(FilteredToDoItem(i, rawList[i]))
+            }
+        }
+        return filteredList
     }
 }

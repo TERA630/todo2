@@ -12,7 +12,6 @@
             name="item"
             type="com.example.yoshi.todo2.ToDoItem" />
     </data>
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -36,7 +36,6 @@ class DetailFragment : Fragment() {
         }
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val itemNumber = arguments?.let {
@@ -85,22 +84,10 @@ class DetailFragment : Fragment() {
     private fun stashCurrentItem(itemNumber: Int) {
         stashItem = vModel.getItemList()[itemNumber].copy()
     }
-
     private fun unStashItem(itemNumber: Int) {
         vModel.getItemList()[itemNumber] = stashItem.copy()
         Log.i("test", "item ${itemNumber + 1} was reverted")
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(): DetailFragment {
-            val bundle = Bundle()
-            val newFragment = DetailFragment()
-            newFragment.arguments = bundle
-            return newFragment
-        }
-    }
-
     class DataSetListener(private val _textView: TextView) : DatePickerDialog.OnDateSetListener {
         override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
             _textView.text = "$year/${month + 1}/$dayOfMonth"

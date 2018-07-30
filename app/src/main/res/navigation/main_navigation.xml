@@ -16,10 +16,16 @@
             app:enterAnim="@anim/slide_in_bottom"
             app:exitAnim="@anim/slide_out_top"
             app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/slide_out_bottom" />
+            app:popExitAnim="@anim/slide_out_bottom"
+            app:popUpTo="@+id/launcher_home" />
         <action
             android:id="@+id/action_launcher_home_to_filteredFragment"
-            app:destination="@id/filteredFragment" />
+            app:destination="@+id/filteredFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@+id/launcher_home" />
     </fragment>
     <fragment
         android:id="@+id/fragment_detail"
@@ -50,9 +56,10 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/launcher_home" />
+            app:popUpTo="@+id/launcher_home"
+            app:popUpToInclusive="false" />
         <argument
-            android:name="tagFilter"
+            android:name="tagString"
             android:defaultValue="home"
             app:type="string" />
     </fragment>

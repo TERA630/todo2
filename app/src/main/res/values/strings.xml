@@ -11,6 +11,7 @@
     <string name="archeved">達成数</string>
     <string name="enterNewItem">新しいアイテムを入力</string>
     <string name="getPoint">完了クリアし達成確認</string>
+    <string name="filterDo">フィルター適応</string>
     <string-array name="period_array">
         <item>毎日</item>
         <item>隔日</item>
@@ -20,6 +21,17 @@
         <item>6日毎</item>
         <item>7日毎</item>
     </string-array>
+    <string-array name="date_array">
+        <item>本日</item>
+        <item>明日</item>
+        <item>3日後</item>
+        <item>今週中</item>
+        <item>今月中</item>
+        <item>期限なし</item>
+
+    </string-array>
+
+
     <string-array name="default_todoItem">
         <item>Stretch Core of Body</item>
         <item>remember what to Do</item>

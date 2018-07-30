@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,13 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.architecture.ext.sharedViewModel
 /*  MVC/MVP - View
-    Controller or Presenter から　Listを貰い､表示する｡
+    MainViewModelからListを貰い､フィルターをかけて表示する｡
     データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡  */
 class MainFragment : Fragment() {
-    private lateinit var mAdapter: RecyclerViewAdapter
     private val vModel by sharedViewModel<MainViewModel>()
+
+    private lateinit var mAdapter: RecyclerViewAdapter
+    private lateinit var filteredList: MutableList<FilteredToDoItem>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,28 +25,28 @@ class MainFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = recycler_view
 
-        val list = vModel.getItemList()
-
-
-
-        mAdapter = RecyclerViewAdapter(mList = list)
+        filteredList = vModel.getItemListWithTag("")
+        mAdapter = RecyclerViewAdapter(mList = filteredList)
+        val recyclerView = recycler_view.apply { setHasFixedSize(true) }
         recyclerView.adapter = mAdapter
         initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
-        recyclerView.setHasFixedSize(true)
-        fab.setOnClickListener { fabBtnView ->
+        main_fab.setOnClickListener { fabBtnView: View ->
             val navController = Navigation.findNavController(fabBtnView)
-            val bundle = Bundle()
-            bundle.putInt("itemNumber", vModel.getItemList().size)
+            val bundle = Bundle().apply { putInt("itemNumber", vModel.getItemList().size) }
             navController.navigate(R.id.action_launcher_home_to_detail, bundle)
+        }
+        performTag.setOnClickListener { v ->
+            val string = filterEdit.text.toString()
+            val navController = Navigation.findNavController(v)
+            val bundle = Bundle().apply { putString("tagString", string) }
+            navController.navigate(R.id.action_launcher_home_to_filteredFragment, bundle)
         }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vModel.itemList.observe(this@MainFragment, Observer {
-            Log.i("test", "${this.javaClass}@${this.hashCode()} listened the change ")
-            mAdapter.setListOfAdapter(vModel.getItemList())
+            mAdapter.setListOfAdapter(vModel.getItemListWithTag(""))
             mAdapter.notifyDataSetChanged()
         })
     }
@@ -55,8 +56,8 @@ class MainFragment : Fragment() {
             override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int =
                     makeMovementFlags((ItemTouchHelper.UP + ItemTouchHelper.DOWN), ItemTouchHelper.RIGHT)
             override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-                vModel.swapItem(viewHolder.adapterPosition, target.adapterPosition)
                 adapter.notifyItemMoved(viewHolder.adapterPosition, target.adapterPosition)
+                vModel.swapItem(viewHolder.adapterPosition, target.adapterPosition)
                 return true
             }
 
@@ -64,7 +65,6 @@ class MainFragment : Fragment() {
                 vModel.deleteItem(viewHolder.adapterPosition)
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
             }
-
             override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
                 super.onSelectedChanged(viewHolder, actionState)
                 when (actionState) {
@@ -72,7 +72,6 @@ class MainFragment : Fragment() {
                         viewHolder?.let { it.itemView.alpha = 0.5f }
                 }
             }
-
             override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
                 super.clearView(recyclerView, viewHolder)
                 viewHolder.itemView.alpha = 1.0f
