@@ -13,5 +13,6 @@ class Application : android.app.Application() {
     }
     private val myModule: Module = applicationContext {
         viewModel { MainViewModel() }
+        bean { KeyboardUtils() }
     }
 }

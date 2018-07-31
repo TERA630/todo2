@@ -28,10 +28,7 @@
         <item>今週中</item>
         <item>今月中</item>
         <item>期限なし</item>
-
     </string-array>
-
-
     <string-array name="default_todoItem">
         <item>Stretch Core of Body</item>
         <item>remember what to Do</item>

@@ -5,14 +5,14 @@
     android:id="@+id/mainFragRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <TextView
         android:id="@+id/achievedPoint"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         app:layout_constraintEnd_toStartOf="@+id/clearDone"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +25,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:nextFocusForward="@id/filterEdit"
         android:text="@string/getPoint"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,29 +33,32 @@
 
     <EditText
         android:id="@+id/filterEdit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:hint="enter filter"
         android:inputType="text"
+        android:imeOptions="actionDone"
+        android:nextFocusForward="@id/performTag"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/filterByDateSpinner"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/achievedPoint" />
+        app:layout_constraintTop_toTopOf="@+id/performTag" />
 
     <Spinner
         android:id="@+id/filterByDateSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
         android:entries="@array/date_array"
+        android:nextFocusForward="@id/filterEdit"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/performTag"
-        app:layout_constraintTop_toTopOf="@+id/filterEdit"
-        tools:text="今日" />
+        app:layout_constraintTop_toTopOf="@+id/performTag" />
 
     <Button
         android:id="@+id/performTag"
@@ -65,7 +69,7 @@
         android:layout_marginEnd="8dp"
         android:text="Filter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/filterEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/clearDone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -77,7 +81,7 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterEdit"
+        app:layout_constraintTop_toBottomOf="@+id/performTag"
         tools:context=".MainActivity"
         tools:itemCount="7"
         tools:listitem="@layout/list_items" />

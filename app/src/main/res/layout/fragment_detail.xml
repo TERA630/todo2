@@ -22,9 +22,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:checked="@={item.done}"
+            android:nextFocusDown="@+id/titleTxt"
+            android:nextFocusForward="@+id/titleTxt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
         <EditText
             android:id="@+id/titleTxt"
             android:layout_width="0dp"
@@ -32,11 +33,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:inputType="text|textPersonName"
+            android:nextFocusDown="@+id/tagTxt"
             android:text="@={item.title}"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintEnd_toStartOf="@+id/applyBtn"
             app:layout_constraintStart_toEndOf="@+id/doneChkBox"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/applyBtn"
             tools:text="@string/enterNewItem" />
 
         <ImageButton
@@ -58,9 +60,8 @@
             android:layout_marginEnd="8dp"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/applyBtn"
             tools:src="@android:drawable/ic_menu_close_clear_cancel" />
-
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="0dp"
@@ -88,6 +89,7 @@
             android:layout_marginEnd="8dp"
             android:hint="enter TAG"
             android:inputType="text"
+            android:nextFocusDown="@+id/titleTxt"
             android:singleLine="true"
             android:text="@={item.tagString}"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
