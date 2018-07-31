@@ -3,6 +3,11 @@ package com.example.yoshi.todo2
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.content.Context
+import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 
 class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
@@ -52,5 +57,25 @@ class MainViewModel : ViewModel() {
             }
         }
         return filteredList
+    }
+
+    fun onFocusChanged(view: View, hasFocus: Boolean) {
+        if (!hasFocus) return
+        val keyboardUtils = KeyboardUtils()
+        keyboardUtils.hide(view.context, view)
+    }
+
+    fun onEditorActionDone(edit: TextView, actionId: Int, event: KeyEvent?): Boolean {
+        Log.i("test", "onEditorActionDone Call")
+        when (actionId) {
+            EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_NONE, EditorInfo.IME_ACTION_NEXT, EditorInfo.IME_NULL -> {
+                val keyboardUtils = KeyboardUtils()
+                keyboardUtils.hide(edit.context, edit)
+                return true
+            }
+            else -> {
+                return false
+            }
+        }
     }
 }

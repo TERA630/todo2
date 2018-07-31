@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.example.yoshi.todo2.MainViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
     android:id="@+id/mainFragRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
     <TextView
         android:id="@+id/achievedPoint"
         android:layout_width="0dp"
@@ -12,24 +22,20 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
         app:layout_constraintEnd_toStartOf="@+id/clearDone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/archeved" />
+
     <Button
         android:id="@+id/clearDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:nextFocusForward="@id/filterEdit"
         android:text="@string/getPoint"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/achievedPoint" />
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <EditText
         android:id="@+id/filterEdit"
@@ -38,24 +44,22 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:hint="enter filter"
-        android:inputType="text"
         android:imeOptions="actionDone"
+        android:inputType="text"
         android:nextFocusForward="@id/performTag"
+        android:onEditorAction="@{handler.onEditorActionDone}"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/filterByDateSpinner"
-        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/performTag" />
 
     <Spinner
         android:id="@+id/filterByDateSpinner"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
         android:entries="@array/date_array"
-        android:nextFocusForward="@id/filterEdit"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/performTag"
         app:layout_constraintTop_toTopOf="@+id/performTag" />
@@ -98,3 +102,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:src="@android:drawable/ic_input_add" />
 </android.support.constraint.ConstraintLayout>
+</layout>

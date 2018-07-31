@@ -4,7 +4,6 @@ fun isValidAsDate(_string: String): Boolean {
     val validCheckEx = Regex("""([12]\d{3})/(\d|1[012])/(\d|[12][0-9]|3[01])""")
     return validCheckEx.matches(_string)
 }
-
 fun isAfter(targetDateStr: String, baseDateStr: String): Boolean {
     val dateRegEx = Regex("""([12]\d{3})/(\d|1[012])/(\d|[12][0-9]|3[01])""")
     if (!((dateRegEx.matches(targetDateStr)) && (dateRegEx.matches(baseDateStr)))) {
@@ -32,7 +31,6 @@ fun isAfter(targetDateStr: String, baseDateStr: String): Boolean {
     }
     return false
 }
-
 fun isBefore(targetDateStr: String, baseDateStr: String): Boolean {
     val dateRegEx = Regex("""([12]\d{3})/(\d|1[012])/(\d|[12][0-9]|3[01])""")
     if (!((dateRegEx.matches(targetDateStr)) && (dateRegEx.matches(baseDateStr)))) {

@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.TextView
 
@@ -27,7 +26,7 @@ fun CheckBox.setSpannableText(doneChecked: Boolean, _text: String) {
 
 fun OnEditorDone(txtView: TextView, actionId: Int, event: KeyEvent): Boolean {
     if (actionId != EditorInfo.IME_ACTION_DONE) return false
-    Log.i("test", "Doneevent Called")
+    Log.i("test", "Done Event Called")
     return true
 }
 
