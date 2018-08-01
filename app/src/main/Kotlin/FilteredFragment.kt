@@ -24,7 +24,7 @@ class FilteredFragment : Fragment() {
         } ?: "home"
 
         val filteredList = vModel.getItemListWithTag(tagString)
-        val mFilteredAdapter = RecyclerViewAdapter(filteredList)
+        val mFilteredAdapter = RecyclerViewAdapter(filteredList, vModel)
         val recyclerView = recycler_viewOfFilter
         recyclerView.adapter = mFilteredAdapter
         recyclerView.setHasFixedSize(true)

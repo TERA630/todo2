@@ -1,6 +1,7 @@
 package com.example.yoshi.todo2
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +14,8 @@ import kotlinx.android.synthetic.main.list_items.view.*
     Controller or Presenter から　Listを貰い､表示する｡
     データ変更を伴うユーザーの入力イベントは　Controller/Presenterに委譲する方針で｡
  */
-class RecyclerViewAdapter(private var mList: List<FilteredToDoItem>)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class RecyclerViewAdapter(var mList: MutableList<FilteredToDoItem>, val vModel: MainViewModel)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     // method
     override fun getItemCount(): Int = mList.size
 
@@ -36,7 +37,43 @@ class RecyclerViewAdapter(private var mList: List<FilteredToDoItem>)
     fun setListOfAdapter(_list: MutableList<FilteredToDoItem>) {
         this.mList = _list
     }
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ListItemsBinding.bind(itemView)
+    }
+
+    fun initItemDragHelper(adapter: RecyclerViewAdapter, _recyclerView: RecyclerView) {
+        val mIth = ItemTouchHelper(object : ItemTouchHelper.Callback() {
+            override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
+                return makeMovementFlags((ItemTouchHelper.UP + ItemTouchHelper.DOWN), ItemTouchHelper.RIGHT)
+            }
+
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                adapter.notifyItemMoved(mList[viewHolder.adapterPosition].unFilter, mList[target.adapterPosition].unFilter)
+                mList.swap(viewHolder.adapterPosition, target.adapterPosition)
+                vModel.swapItem(viewHolder.adapterPosition, target.adapterPosition)
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                mList.removeAt(viewHolder.adapterPosition)
+                vModel.deleteItem(mList[viewHolder.adapterPosition].unFilter)
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+            }
+
+            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+                super.onSelectedChanged(viewHolder, actionState)
+                when (actionState) {
+                    ItemTouchHelper.ACTION_STATE_DRAG, ItemTouchHelper.ACTION_STATE_SWIPE ->
+                        viewHolder?.let { it.itemView.alpha = 0.5f }
+                }
+            }
+
+            override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+                super.clearView(recyclerView, viewHolder)
+                viewHolder.itemView.alpha = 1.0f
+            }
+        })
+        mIth.attachToRecyclerView(_recyclerView)
     }
 }

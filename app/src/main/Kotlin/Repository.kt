@@ -58,3 +58,9 @@ class Repository {
         }
     }
 }
+
+fun MutableList<FilteredToDoItem>.swap(oneIndex: Int, otherIndex: Int) {
+    val temp = this[otherIndex]
+    this[otherIndex] = this[oneIndex]
+    this[oneIndex] = temp
+}
