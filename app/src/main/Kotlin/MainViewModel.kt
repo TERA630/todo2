@@ -12,6 +12,7 @@ import android.widget.TextView
 class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
     var earnedPoints: Int = 0
+    val recentDate = fetchRecentDate()
 
     fun initItems(_context: Context) {
         val repository = Repository()
@@ -58,6 +59,11 @@ class MainViewModel : ViewModel() {
         }
         return filteredList
     }
+    /* fun getItemListWithDate(targetDate:String):MutableList<FilteredToDoItem>{
+         val rawList = getItemList()
+         val recentDates = fetchRecentDate()
+         return
+     }*/
 
     fun onFocusChanged(view: View, hasFocus: Boolean) {
         if (!hasFocus) return
