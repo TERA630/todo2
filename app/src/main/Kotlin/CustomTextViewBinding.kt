@@ -30,7 +30,7 @@ fun OnEditorDone(txtView: TextView, actionId: Int, event: KeyEvent): Boolean {
     return true
 }
 
-fun OnFocusChanged(view: View, hasFocus: Boolean) {
+fun onFocusChanged(view: View, hasFocus: Boolean) {
     if (!hasFocus) {
         val keyboardUtils = KeyboardUtils()
         keyboardUtils.hide(view.context, view)

@@ -1,5 +1,6 @@
 package com.example.yoshi.todo2
 
+import org.hamcrest.Matchers
 import org.hamcrest.Matchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
@@ -27,21 +28,22 @@ class ValidTest(val paramOne: String, val paramTwo: Boolean) : Throwable() {
 }
 
 @RunWith(Parameterized::class)
-class FilterTest(val paramOne: String, val paramTwo: String, val paramThree: Boolean) : Throwable() {
+class fetchdateTest(val paramOne: Int, val paramTwo: String, paramThree: Boolean) : Throwable() {
     companion object {
         @JvmStatic
-        @Parameterized.Parameters(name = "{0} と　{1} では　{2}")
+        @Parameterized.Parameters(name = "{0} は　{1} ")
         fun data(): Collection<Array<Any>> = listOf(
-                arrayOf("1999/1/30", "2018/12/30", true),
-                arrayOf("2018/6/30", "2018/6/15", false),
-                arrayOf("1000/7/1", "2018/6/30", true),
-                arrayOf("1977/6/30", "1977/7/1", true),
-                arrayOf("1976/2/3", "1976/3/3", true),
-                arrayOf("2018/1/21", "2018/3/321", true))
+                arrayOf(0, "2018/8/1", true),
+                arrayOf(1, "2018/8/2", true),
+                arrayOf(2, "2018/8/3", true),
+                arrayOf(3, "2018/8/4", true),
+                arrayOf(4, "2018/8/5", true),
+                arrayOf(5, "2018/8/6", true),
+                arrayOf(6, "2018/8/7", true))
     }
-
     @Test
-    fun isBeforeTest() {
-        assertThat(isBefore(paramOne, paramTwo), equalTo(paramThree))
+    fun dateFetchTest() {
+        val list = fetchRecentDate()
+        assertThat(list[paramOne], Matchers.equalTo(paramTwo))
     }
 }
