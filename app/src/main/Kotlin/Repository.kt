@@ -65,7 +65,7 @@ fun MutableList<FilteredToDoItem>.swap(oneIndex: Int, otherIndex: Int) {
     this[oneIndex] = temp
 }
 
-fun MutableList<FilteredToDoItem>.filterBydate(dateStr: String): MutableList<FilteredToDoItem> {
+fun MutableList<FilteredToDoItem>.filterByDate(dateStr: String): MutableList<FilteredToDoItem> {
     val resultlist = emptyList<FilteredToDoItem>().toMutableList()
     for (i in this.indices) {
         if ((this[i].item.hasStartLine) && isBefore(dateStr, this[i].item.startLine)) {

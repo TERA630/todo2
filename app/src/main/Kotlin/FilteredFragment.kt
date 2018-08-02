@@ -22,6 +22,10 @@ class FilteredFragment : Fragment() {
             val safeArgs = FilteredFragmentArgs.fromBundle(it)
             safeArgs.tagString
         } ?: "home"
+        val dateString = arguments?.let{
+            val safeDate = FilteredFragmentArgs.fromBundle(it)
+            safeDate
+        }
 
         val filteredList = vModel.getItemListWithTag(tagString)
         val mFilteredAdapter = RecyclerViewAdapter(filteredList, vModel)

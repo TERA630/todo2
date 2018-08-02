@@ -48,17 +48,10 @@ class MainViewModel : ViewModel() {
     fun getItemList(): MutableList<ToDoItem> = itemList.value
             ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
 
-    fun dispatchFilter(targetDate: String, filterStr: String): MutableList<FilteredToDoItem> {
-        if (targetDate == "") {
-            return getItemListWithTag(filterStr)
-        } else {
-            if (isValidAsDate(targetDate)) return getItemListWithTag(filterStr)
-            return getItemListWithTag(filterStr).filterBydate(targetDate)
-        }
-    }
+
 
     fun getItemListCurrentWithTag(targetDate: String, filterStr: String): MutableList<FilteredToDoItem> {
-        val resultList = getItemListWithTag(filterStr).filterBydate(targetDate)
+        val resultList = getItemListWithTag(filterStr).filterByDate(targetDate)
         Log.i("test", " ${resultList.size} of item was got ")
         return resultList
     }

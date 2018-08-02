@@ -2,14 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="handler"
             type="com.example.yoshi.todo2.MainViewModel" />
+        <variable
+            name="targetDate"
+            type="String"/>
     </data>
-
     <android.support.constraint.ConstraintLayout
     android:id="@+id/mainFragRoot"
     android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         tools:context=".MainActivity">
     <TextView
         android:id="@+id/achievedPoint"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -28,15 +28,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/archeved" />
 
-    <Button
-        android:id="@+id/clearDone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/getPoint"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="16dp" />
-
+        <Button
+            android:id="@+id/clearDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/getPoint"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:id="@+id/filterEdit"
         android:layout_width="0dp"
@@ -46,8 +46,7 @@
         android:hint="enter filter"
         android:imeOptions="actionDone"
         android:inputType="text"
-        android:nextFocusForward="@id/performTag"
-        android:onEditorAction="@{handler.onEditorActionDone}"
+        android:onEditorAction="@{handler::onEditorActionDone}"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/filterByDateSpinner"
@@ -90,16 +89,15 @@
         tools:itemCount="7"
         tools:listitem="@layout/list_items" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/main_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@android:drawable/ic_input_add" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/main_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="8dp"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="336dp"
+            tools:src="@android:drawable/ic_input_add" />
 </android.support.constraint.ConstraintLayout>
 </layout>

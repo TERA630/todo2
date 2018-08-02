@@ -40,8 +40,11 @@ class MainFragment : Fragment() {
             navController.navigate(R.id.action_launcher_home_to_detail, bundle)
         }
         performTag.setOnClickListener { v ->
-            val string = filterEdit.text.toString()
-            val bundle = Bundle().apply { putString("tagString", string) }
+            val filterStr = filterEdit.text.toString()
+            val bundle = Bundle().apply {
+                putString("tagString", filterStr)
+             //   putString("dateString",dateStr)
+            }
             val navController = Navigation.findNavController(v)
             navController.navigate(R.id.action_launcher_home_to_filteredFragment, bundle)
         }
@@ -54,4 +57,12 @@ class MainFragment : Fragment() {
         })
     }
 
+    fun dispatchFilter(targetDate: String, filterStr: String): MutableList<FilteredToDoItem> {
+        if (targetDate == "") {
+            return vModel.getItemListWithTag(filterStr)
+        } else {
+            if (!isValidAsDate(targetDate)) return vModel.getItemListWithTag(filterStr)
+            return vModel.getItemListWithTag(filterStr).filterByDate(targetDate)
+        }
+    }
 }
