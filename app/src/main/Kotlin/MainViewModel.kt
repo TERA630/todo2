@@ -18,17 +18,7 @@ class MainViewModel : ViewModel() {
 
     fun initItems(_context: Context) {
         val repository = Repository()
-        var mList = repository.loadListFromPreference(_context)
-        if (mList.equals(mutableListOf(ToDoItem(EMPTY_ITEM)))) {
-            val res = _context.resources
-            val defaultItemTitle = res.getStringArray(R.array.default_todoItem_title)
-            val defaultItemStartDate = res.getStringArray(R.array.default_todoItem_startDate)
-            val defaultItemTag = res.getStringArray(R.array.default_todoItem_tag)
-            val toDoList = List(6, { index -> ToDoItem(title = defaultItemTitle[index], hasStartLine = true, startLine = defaultItemStartDate[index], tagString = defaultItemTag[index]) })
-            itemList.value = toDoList.toMutableList()
-        } else {
-            itemList.value = mList.toMutableList()
-        }
+        itemList.value = repository.loadListFromPreference(_context)
         filterSpinnerStrList = fetchRecentDate(context = _context)
     }
     fun appendItem(newItem: ToDoItem) {

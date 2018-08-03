@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
         vModel = getViewModel()
         vModel.initItems(this.applicationContext)
         setContentView(R.layout.activity_main)
-
         keyboardUtils.initHidden(this@MainActivity)
     }
     override fun onPause() {

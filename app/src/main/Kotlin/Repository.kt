@@ -1,10 +1,10 @@
 package com.example.yoshi.todo2
 
 import android.content.Context
-import kotlinx.serialization.Serializable
+import android.util.Log
+import kotlinx.serialization.*
 import kotlinx.serialization.internal.ArrayListSerializer
 import kotlinx.serialization.json.JSON
-import kotlinx.serialization.serializer
 
 const val ITEM_DATA = "toDoItems"
 const val EMPTY_ITEM = "empty item"
@@ -48,13 +48,34 @@ class Repository {
 
     fun loadListFromPreference(_context: Context): MutableList<ToDoItem> {
         val jsonString = loadStringFromPreference(ITEM_DATA, _context)
+
         if (jsonString == EMPTY_ITEM) {
-            return mutableListOf(ToDoItem("$EMPTY_ITEM"))
+            return makeDefaultList(_context)
         } else {
-            val toDoSerializer = ToDoItem::class.serializer()
-            val listSerializer = ArrayListSerializer(toDoSerializer)
-            return JSON.unquoted.parse(listSerializer, jsonString).toMutableList()
+            try {
+                val toDoSerializer = ToDoItem::class.serializer()
+                val listSerializer = ArrayListSerializer(toDoSerializer)
+                return JSON.unquoted.parse(listSerializer, jsonString).toMutableList()
+            } catch (e: SerializationException) {
+                Log.e("Error", "${e.message} with ${e.cause}")
+                return makeDefaultList(_context)
+            } catch (e: MissingFieldException) {
+                Log.e("Error", e.message)
+                return makeDefaultList(_context)
+            } catch (e: UnknownFieldException) {
+                Log.e("Error", e.message)
+                return makeDefaultList(_context)
+            }
         }
+    }
+
+    fun makeDefaultList(_context: Context): MutableList<ToDoItem> {
+        val res = _context.resources
+        val defaultItemTitle = res.getStringArray(R.array.default_todoItem_title)
+        val defaultItemStartDate = res.getStringArray(R.array.default_todoItem_startDate)
+        val defaultItemTag = res.getStringArray(R.array.default_todoItem_tag)
+        val toDoList = List(6, { index -> ToDoItem(title = defaultItemTitle[index], hasStartLine = true, startLine = defaultItemStartDate[index], tagString = defaultItemTag[index]) })
+        return toDoList.toMutableList()
     }
 }
 
