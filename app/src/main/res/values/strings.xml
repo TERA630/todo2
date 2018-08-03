@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">ToDo2</string>
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="filterCondition">表示条件</string>
     <string name="apply">決定</string>
     <string name="cancel">元に戻す</string>
@@ -24,17 +21,42 @@
     <string-array name="date_array">
         <item>本日</item>
         <item>明日</item>
+        <item>2日後</item>
         <item>3日後</item>
         <item>今週中</item>
         <item>今月中</item>
         <item>期限なし</item>
     </string-array>
-    <string-array name="default_todoItem">
+    <integer-array name="dateFilter_array">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>7</item>
+        <item>30</item>
+    </integer-array>
+    <string-array name="default_todoItem_title">
         <item>Stretch Core of Body</item>
         <item>remember what to Do</item>
         <item>Eat and drink</item>
         <item>Go out</item>
-        <item>run if I can</item>
-        <item>Make bed clean</item>
+        <item>B型肝炎の抗体まとめ</item>
+        <item>自転車の試乗</item>
+    </string-array>
+    <string-array name="default_todoItem_startDate">
+        <item>2018/8/3</item>
+        <item>2018/8/3</item>
+        <item>2018/8/4</item>
+        <item>2018/8/5</item>
+        <item>2018/8/6</item>
+        <item>2018/8/10</item>
+    </string-array>
+    <string-array name="default_todoItem_tag">
+        <item>home</item>
+        <item>home</item>
+        <item>home</item>
+        <item>home</item>
+        <item>Study</item>
+        <item>外出</item>
     </string-array>
 </resources>

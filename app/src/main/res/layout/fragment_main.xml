@@ -59,6 +59,7 @@
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
         android:entries="@array/date_array"
+        android:onItemSelected="@{handler::onItemSelected}"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintEnd_toStartOf="@+id/performTag"
         app:layout_constraintTop_toTopOf="@+id/performTag" />

@@ -7,24 +7,29 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
 import android.widget.TextView
 
 class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
     var earnedPoints: Int = 0
-    val recentDate = fetchRecentDate()
+    lateinit var filterSpinnerStrList: MutableList<String>
+    lateinit var currentDateFilterStr: String
 
     fun initItems(_context: Context) {
         val repository = Repository()
         var mList = repository.loadListFromPreference(_context)
         if (mList.equals(mutableListOf(ToDoItem(EMPTY_ITEM)))) {
             val res = _context.resources
-            val defaultItemTitle = res.getStringArray(R.array.default_todoItem)
-            val toDoList = List(6, { index -> ToDoItem(title = defaultItemTitle[index]) })
+            val defaultItemTitle = res.getStringArray(R.array.default_todoItem_title)
+            val defaultItemStartDate = res.getStringArray(R.array.default_todoItem_startDate)
+            val defaultItemTag = res.getStringArray(R.array.default_todoItem_tag)
+            val toDoList = List(6, { index -> ToDoItem(title = defaultItemTitle[index], hasStartLine = true, startLine = defaultItemStartDate[index], tagString = defaultItemTag[index]) })
             itemList.value = toDoList.toMutableList()
         } else {
             itemList.value = mList.toMutableList()
         }
+        filterSpinnerStrList = fetchRecentDate(context = _context)
     }
     fun appendItem(newItem: ToDoItem) {
         val size = getItemList().size
@@ -44,11 +49,8 @@ class MainViewModel : ViewModel() {
         list[fromPosition] = str
         itemList.value = list
     }
-
     fun getItemList(): MutableList<ToDoItem> = itemList.value
             ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
-
-
 
     fun getItemListCurrentWithTag(targetDate: String, filterStr: String): MutableList<FilteredToDoItem> {
         val resultList = getItemListWithTag(filterStr).filterByDate(targetDate)
@@ -71,13 +73,6 @@ class MainViewModel : ViewModel() {
          val recentDates = fetchRecentDate()
          return
      }*/
-
-    fun onFocusChanged(view: View, hasFocus: Boolean) {
-        if (!hasFocus) return
-        val keyboardUtils = KeyboardUtils()
-        keyboardUtils.hide(view.context, view)
-    }
-
     fun onEditorActionDone(edit: TextView, actionId: Int, event: KeyEvent?): Boolean {
         Log.i("test", "onEditorActionDone Call")
         when (actionId) {
@@ -90,5 +85,12 @@ class MainViewModel : ViewModel() {
                 return false
             }
         }
+    }
+
+    fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+        Log.i("test", "spinner ${position}selected")
+        Log.i("test", "${filterSpinnerStrList[position]} will be filteted")
+        currentDateFilterStr = filterSpinnerStrList[position]
+
     }
 }

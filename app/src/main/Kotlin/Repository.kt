@@ -21,7 +21,6 @@ data class ToDoItem constructor(
         var deadLine: String = "----/--/--",
         var tagString: String = "home"
 )
-
 class FilteredToDoItem constructor(
         var unFilter: Int = 0,
         var item: ToDoItem = ToDoItem()

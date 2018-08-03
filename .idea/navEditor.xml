@@ -17,6 +17,15 @@
                             <option name="y" value="-7" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_filteredFragment_to_launcher_home">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -46,13 +55,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-67" />
-                            <option name="y" value="-18" />
+                            <option name="x" value="-59" />
+                            <option name="y" value="-27" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_launcher_home_to_detail">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_launcher_home_to_filteredFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

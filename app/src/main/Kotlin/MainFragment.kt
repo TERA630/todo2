@@ -21,14 +21,14 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        filteredList = vModel.getItemListWithTag("")
+        mAdapter = RecyclerViewAdapter(mList = filteredList, vModel = vModel)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.handler = vModel
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        filteredList = vModel.getItemListWithTag("")
-        mAdapter = RecyclerViewAdapter(mList = filteredList, vModel = vModel)
         val recyclerView = binding.recyclerView.apply {
             setHasFixedSize(true)
             adapter = mAdapter
@@ -36,17 +36,19 @@ class MainFragment : Fragment() {
         mAdapter.initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
         main_fab.setOnClickListener { fabBtnView: View ->
             val navController = Navigation.findNavController(fabBtnView)
+
             val bundle = Bundle().apply { putInt("itemNumber", vModel.getItemList().size) }
             navController.navigate(R.id.action_launcher_home_to_detail, bundle)
         }
         performTag.setOnClickListener { v ->
             val filterStr = filterEdit.text.toString()
-            val bundle = Bundle().apply {
-                putString("tagString", filterStr)
-             //   putString("dateString",dateStr)
-            }
+            val args = FilteredFragmentArgs.Builder()
+                    .setFilterDate("2018/8/3")
+                    .setTagString("home")
+                    .build()
+                    .toBundle()
             val navController = Navigation.findNavController(v)
-            navController.navigate(R.id.action_launcher_home_to_filteredFragment, bundle)
+            navController.navigate(R.id.action_launcher_home_to_filteredFragment, args)
         }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {

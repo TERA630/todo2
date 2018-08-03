@@ -5,7 +5,6 @@
     tools:context=".DetailFragment"
     tools:ignore="ContentDescription">
     <data>
-
         <import type="com.example.yoshi.todo2.FilteredToDoItem" />
         <import type="java.util.List"/>
         <variable name="handler"
@@ -23,7 +22,7 @@
     android:focusable="true"
     android:orientation="horizontal">
     <CheckBox
-        android:id="@+id/itemTile"
+        android:id="@+id/itemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -32,6 +31,7 @@
         app:layout_constraintTop_toTopOf = "parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="To Do Items" />
+
     <TextView
         android:id="@+id/periodViewer"
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemTile"
+        app:layout_constraintTop_toBottomOf="@+id/itemTitle"
         tools:text="2018/07/25～2018/07/26"/>
     <ImageButton
         android:id="@+id/editBtn"

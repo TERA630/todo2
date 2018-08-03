@@ -125,11 +125,9 @@
             android:id="@+id/hasStartSw"
             android:layout_width="@dimen/imgBtn_size"
             android:layout_height="@dimen/imgBtn_size"
-            android:checked="@={item.hasStartLine}"
+            android:checked="false"
             app:layout_constraintStart_toEndOf="@+id/startCal"
-            app:layout_constraintTop_toBottomOf="@+id/tagTxt"
-            tools:layout_editor_absoluteX="328dp"
-            tools:layout_editor_absoluteY="125dp" />
+            app:layout_constraintTop_toBottomOf="@+id/tagTxt" />
 
         <TextView
             android:id="@+id/deadDateTxt"

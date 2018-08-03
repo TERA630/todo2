@@ -1,5 +1,6 @@
 package com.example.yoshi.todo2
 
+import android.content.Context
 import java.util.*
 
 fun isValidAsDate(_string: String): Boolean {
@@ -61,12 +62,14 @@ fun isBefore(targetDateStr: String, baseDateStr: String): Boolean {
     return false
 }
 
-fun fetchRecentDate(): MutableList<String> {
-    val cal = Calendar.getInstance(Locale.JAPAN)
+fun fetchRecentDate(context: Context): MutableList<String> {
     val _list = MutableList<String>(7, { "" })
-    for (i in _list.indices) {
+    val filterIntList = context.resources.getIntArray(R.array.dateFilter_array)
+    // 当日､翌日､2日後､3日後,7日後､30日後
+    for (i in filterIntList.indices) {
+        val cal = Calendar.getInstance(Locale.JAPAN)
+        cal.add(Calendar.DATE, filterIntList[i])
         _list[i] = "${cal.get(Calendar.YEAR)}/${cal.get(Calendar.MONTH) + 1}/${cal.get(Calendar.DAY_OF_MONTH)}"
-        cal.add(Calendar.DATE, 1)
     }
     return _list
 }

@@ -18,7 +18,7 @@ class KeyboardUtils {
         this.hide(activity, activity.currentFocus)
     }
 
-    fun initHiden(activity: Activity) {
+    fun initHidden(activity: Activity) {
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
     fun show(context: Context, text: EditText) {
@@ -36,4 +36,3 @@ class KeyboardUtils {
         Handler().postDelayed(showKeyboardDelay, delayTime.toLong())
     }
 }
-
