@@ -16,12 +16,11 @@ import org.koin.android.architecture.ext.sharedViewModel
 class MainFragment : Fragment() {
     private val vModel by sharedViewModel<MainViewModel>()
     private lateinit var mAdapter: RecyclerViewAdapter
-    private lateinit var filteredList: MutableList<FilteredToDoItem>
     private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        filteredList = vModel.getItemListWithTag("")
+        val filteredList = vModel.getItemListCurrentWithTag(vModel.currentDateStr,vModel.currentTagFilter)
         mAdapter = RecyclerViewAdapter(mList = filteredList, vModel = vModel)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.handler = vModel
@@ -36,17 +35,13 @@ class MainFragment : Fragment() {
         mAdapter.initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
         main_fab.setOnClickListener { fabBtnView: View ->
             val navController = Navigation.findNavController(fabBtnView)
-
-            val bundle = Bundle().apply { putInt("itemNumber", vModel.getItemList().size) }
-            navController.navigate(R.id.action_launcher_home_to_detail, bundle)
+            val args = DetailFragmentArgs.Builder().setItemNumber(vModel.getItemList().size).build().toBundle()
+            navController.navigate(R.id.action_launcher_home_to_detail,args)
         }
         performTag.setOnClickListener { v ->
             val filterStr = filterEdit.text.toString()
             val args = FilteredFragmentArgs.Builder()
-                    .setFilterDate("2018/8/3")
-                    .setTagString("home")
-                    .build()
-                    .toBundle()
+                    .setFilterDate(vModel.currentDateStr).setTagString(filterStr).build().toBundle()
             val navController = Navigation.findNavController(v)
             navController.navigate(R.id.action_launcher_home_to_filteredFragment, args)
         }
@@ -54,11 +49,10 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vModel.itemList.observe(this@MainFragment, Observer {
-            mAdapter.setListOfAdapter(vModel.getItemListWithTag(""))
+            mAdapter.setListOfAdapter(vModel.getItemListCurrentWithTag(vModel.currentDateStr,vModel.currentTagFilter))
             mAdapter.notifyDataSetChanged()
         })
     }
-
     fun dispatchFilter(targetDate: String, filterStr: String): MutableList<FilteredToDoItem> {
         if (targetDate == "") {
             return vModel.getItemListWithTag(filterStr)
