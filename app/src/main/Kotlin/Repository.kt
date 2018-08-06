@@ -15,7 +15,7 @@ data class ToDoItem constructor(
         var reward: Int = 1,
         var isDone: Boolean = false,
         var isRoutine: Boolean = false,
-        var hasStartLine: Boolean = false,
+        var hasStartLine: Boolean = true,
         var startLine: String = "----/--/--",
         var hasDeadLine: Boolean = false,
         var deadLine: String = "----/--/--",

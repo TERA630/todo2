@@ -63,7 +63,7 @@ fun isBefore(targetDateStr: String, baseDateStr: String): Boolean {
 }
 
 fun fetchRecentDate(context: Context): MutableList<String> {
-    val _list = MutableList<String>(7, { "" })
+    val _list = MutableList(6) { "" }
     val filterIntList = context.resources.getIntArray(R.array.dateFilter_array)
     // 当日､翌日､2日後､3日後,7日後､30日後
     for (i in filterIntList.indices) {

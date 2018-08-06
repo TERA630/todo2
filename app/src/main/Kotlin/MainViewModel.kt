@@ -14,12 +14,14 @@ class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
     var earnedPoints: Int = 0
     lateinit var filterSpinnerStrList: MutableList<String>
-    lateinit var currentDateFilterStr: String
+    lateinit var currentDateStr: String
+    var currentTagFilter: CharSequence = ""
 
     fun initItems(_context: Context) {
         val repository = Repository()
         itemList.value = repository.loadListFromPreference(_context)
         filterSpinnerStrList = fetchRecentDate(context = _context)
+        currentDateStr = filterSpinnerStrList[0]
     }
     fun appendItem(newItem: ToDoItem) {
         val size = getItemList().size
@@ -42,18 +44,19 @@ class MainViewModel : ViewModel() {
     fun getItemList(): MutableList<ToDoItem> = itemList.value
             ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
 
-    fun getItemListCurrentWithTag(targetDate: String, filterStr: String): MutableList<FilteredToDoItem> {
-        val resultList = getItemListWithTag(filterStr).filterByDate(targetDate)
+    fun getItemListCurrentWithTag(targetDate: String, filterStr: CharSequence): MutableList<FilteredToDoItem> {
+        val resultList = getItemListWithTag(filterStr.toString()).filterByDate(targetDate)
         Log.i("test", " ${resultList.size} of item was got ")
         return resultList
     }
-    fun getItemListWithTag(filterStr: String): MutableList<FilteredToDoItem> {
+
+    fun getItemListWithTag(filterStr: CharSequence): MutableList<FilteredToDoItem> {
         val rawList = getItemList()
-        val regFilterStr = Regex(filterStr)
+        val regFilterStr = Regex(filterStr.toString())
         var filteredList: MutableList<FilteredToDoItem> = emptyList<FilteredToDoItem>().toMutableList()
         for (i in 0..rawList.lastIndex) {
             if (rawList[i].tagString.contains(regFilterStr)) {
-                filteredList.add(FilteredToDoItem(i, rawList[i]))
+                filteredList.add(FilteredToDoItem(i, rawList[i].copy()))
             }
         }
         return filteredList
@@ -67,6 +70,7 @@ class MainViewModel : ViewModel() {
         Log.i("test", "onEditorActionDone Call")
         when (actionId) {
             EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_NONE, EditorInfo.IME_ACTION_NEXT, EditorInfo.IME_NULL -> {
+                currentTagFilter = edit.text ?: ""
                 val keyboardUtils = KeyboardUtils()
                 keyboardUtils.hide(edit.context, edit)
                 return true
@@ -76,11 +80,9 @@ class MainViewModel : ViewModel() {
             }
         }
     }
-
     fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
         Log.i("test", "spinner ${position}selected")
-        Log.i("test", "${filterSpinnerStrList[position]} will be filteted")
-        currentDateFilterStr = filterSpinnerStrList[position]
+        currentDateStr = filterSpinnerStrList[position]
 
     }
 }
