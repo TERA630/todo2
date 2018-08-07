@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toStartOf="@+id/clearDone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/archeved" />
+        tools:text="@string/achievement" />
 
         <Button
             android:id="@+id/clearDone"

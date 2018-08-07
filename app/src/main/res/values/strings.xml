@@ -5,7 +5,7 @@
     <string name="apply">決定</string>
     <string name="cancel">元に戻す</string>
     <string name="undefinedDate">----/--/--</string>
-    <string name="archeved">達成数</string>
+    <string name="achievement">達成数</string>
     <string name="enterNewItem">新しいアイテムを入力</string>
     <string name="getPoint">完了クリアし達成確認</string>
     <string name="filterDo">フィルター適応</string>
@@ -43,8 +43,10 @@
         <item>B型肝炎の抗体まとめ</item>
         <item>自転車の試乗</item>
         <item>毛剃り</item>
-        <item>契約書探すのに片付ける</item>
         <item>達成度集計</item>
+        <item>スルガ銀行に連絡</item>
+        <item>ひげそり処分</item>
+        <item>平面図送付</item>
     </string-array>
     <string-array name="default_todoItem_startDate">
         <item>2018/8/3</item>
@@ -56,6 +58,9 @@
         <item>2018/8/8</item>
         <item>2018/8/8</item>
         <item>2018/8/9</item>
+        <item>2018/8/7</item>
+        <item>2018/8/9</item>
+        <item>2018/8/7</item>
     </string-array>
     <string-array name="default_todoItem_tag">
         <item>home</item>

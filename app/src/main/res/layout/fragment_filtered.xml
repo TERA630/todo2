@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        tools:text="@string/archeved" />
+        tools:text="@string/achievement" />
 
     <Button
         android:id="@+id/clearDone"
