@@ -17,14 +17,12 @@ class KeyboardUtils {
     fun hide(activity: Activity) {
         this.hide(activity, activity.currentFocus)
     }
-
     fun initHidden(activity: Activity) {
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
     fun show(context: Context, text: EditText) {
         show(context, text)
     }
-
     fun show(context: Context?, edit: EditText, delayTime: Int) {
         val showKeyboardDelay = Runnable {
             if (context != null) {

@@ -22,6 +22,7 @@ class RecyclerViewAdapter(var mList: MutableList<FilteredToDoItem>, val vModel: 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val rowView = LayoutInflater.from(parent.context).inflate(R.layout.list_items, parent, false)
         val itemVH = ItemViewHolder(rowView)
+        if (mList.size == 0) Log.i("test", "No item")
         itemVH.binding.itemList = mList.toList()
         itemVH.binding.itemTitle.setOnCheckedChangeListener { _, _ -> Log.i("test", "changed was listened") }
         return itemVH

@@ -53,12 +53,4 @@ class MainFragment : Fragment() {
             mAdapter.notifyDataSetChanged()
         })
     }
-    fun dispatchFilter(targetDate: String, filterStr: String): MutableList<FilteredToDoItem> {
-        if (targetDate == "") {
-            return vModel.getItemListWithTag(filterStr)
-        } else {
-            if (!isValidAsDate(targetDate)) return vModel.getItemListWithTag(filterStr)
-            return vModel.getItemListWithTag(filterStr).filterByDate(targetDate)
-        }
-    }
 }

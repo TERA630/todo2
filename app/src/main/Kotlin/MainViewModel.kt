@@ -14,7 +14,7 @@ class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
     var earnedPoints: Int = 0
     lateinit var filterSpinnerStrList: MutableList<String>
-    lateinit var currentDateStr: String
+    var currentDateStr = "2018/1/1"
     var currentTagFilter: CharSequence = ""
 
     fun initItems(_context: Context) {
@@ -45,8 +45,11 @@ class MainViewModel : ViewModel() {
             ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
 
     fun getItemListCurrentWithTag(targetDate: String, filterStr: CharSequence): MutableList<FilteredToDoItem> {
-        val resultList = getItemListWithTag(filterStr.toString()).filterByDate(targetDate)
-        Log.i("test", " ${resultList.size} of item was got ")
+        val resultList = if (filterStr == "") {
+            getItemListWithDate(targetDate)
+        } else {
+            getItemListWithTag(filterStr.toString()).filterByDate(targetDate)
+        }
         return resultList
     }
 
@@ -61,11 +64,17 @@ class MainViewModel : ViewModel() {
         }
         return filteredList
     }
-    /* fun getItemListWithDate(targetDate:String):MutableList<FilteredToDoItem>{
+
+    fun getItemListWithDate(targetDate: String): MutableList<FilteredToDoItem> {
          val rawList = getItemList()
-         val recentDates = fetchRecentDate()
-         return
-     }*/
+        val result: MutableList<FilteredToDoItem> = emptyList<FilteredToDoItem>().toMutableList()
+        for (i in 0..rawList.lastIndex) {
+            if (isBefore(targetDate, rawList[i].startLine)) {
+                result.add(FilteredToDoItem(i, rawList[i].copy()))
+            }
+        }
+        return result
+    }
     fun onEditorActionDone(edit: TextView, actionId: Int, event: KeyEvent?): Boolean {
         Log.i("test", "onEditorActionDone Call")
         when (actionId) {

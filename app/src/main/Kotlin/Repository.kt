@@ -89,7 +89,7 @@ fun MutableList<FilteredToDoItem>.filterByDate(dateStr: String): MutableList<Fil
     val resultlist = emptyList<FilteredToDoItem>().toMutableList()
     for (i in this.indices) {
         if ((this[i].item.hasStartLine) && isBefore(dateStr, this[i].item.startLine)) {
-            resultlist.add(FilteredToDoItem(i, this[i].item))
+            resultlist.add(FilteredToDoItem(i, this[i].item.copy()))
         }
     }
     return resultlist
