@@ -15,7 +15,7 @@ class MainViewModel : ViewModel() {
     var earnedPoints: Int = 0
     lateinit var filterSpinnerStrList: MutableList<String>
     var currentDateStr = "2018/1/1"
-    var currentTagFilter: CharSequence = ""
+    var currentTagFilter = ""
 
     fun initItems(_context: Context) {
         val repository = Repository()
@@ -79,7 +79,7 @@ class MainViewModel : ViewModel() {
         Log.i("test", "onEditorActionDone Call")
         when (actionId) {
             EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_NONE, EditorInfo.IME_ACTION_NEXT, EditorInfo.IME_NULL -> {
-                currentTagFilter = edit.text ?: ""
+                currentTagFilter = edit.text.toString()
                 val keyboardUtils = KeyboardUtils()
                 keyboardUtils.hide(edit.context, edit)
                 return true

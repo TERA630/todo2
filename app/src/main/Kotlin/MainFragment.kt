@@ -53,4 +53,10 @@ class MainFragment : Fragment() {
             mAdapter.notifyDataSetChanged()
         })
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("filterDate", vModel.currentDateStr)
+        outState.putString("tagString", vModel.currentTagFilter)
+    }
 }

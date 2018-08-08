@@ -75,6 +75,7 @@
             app:type="string" />
         <argument
             android:name="filterDate"
+            android:defaultValue="2004/3/31"
             app:type="string" />
     </fragment>
 
