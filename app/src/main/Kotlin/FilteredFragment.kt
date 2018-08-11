@@ -10,7 +10,6 @@ import org.koin.android.architecture.ext.sharedViewModel
 
 class FilteredFragment : Fragment() {
     private val vModel by sharedViewModel<MainViewModel>()
-    //  private lateinit var mFilteredAdapter:RecyclerViewAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_filtered, container, false)
@@ -18,16 +17,7 @@ class FilteredFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tagString = arguments?.let {
-            val safeArgs = FilteredFragmentArgs.fromBundle(it)
-            safeArgs.tagString
-        } ?: "home"
-        val dateString = arguments?.let{
-            val safeDate = FilteredFragmentArgs.fromBundle(it)
-            safeDate
-        }
-
-        val filteredList = vModel.getItemListWithTag(tagString)
+        val filteredList = vModel.getItemListWithTag("study")
         val mFilteredAdapter = RecyclerViewAdapter(filteredList, vModel)
         val recyclerView = recycler_viewOfFilter
         recyclerView.adapter = mFilteredAdapter

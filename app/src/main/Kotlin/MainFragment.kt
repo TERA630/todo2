@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val filteredList = vModel.getItemListCurrentWithTag(vModel.currentDateStr,vModel.currentTagFilter)
+        val filteredList = vModel.getItemListCurrentWithTag(vModel.currentDateStr, vModel.tagFilters[0])
         mAdapter = RecyclerViewAdapter(mList = filteredList, vModel = vModel)
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.handler = vModel
@@ -35,28 +35,25 @@ class MainFragment : Fragment() {
         mAdapter.initItemDragHelper(adapter = mAdapter, _recyclerView = recyclerView)
         main_fab.setOnClickListener { fabBtnView: View ->
             val navController = Navigation.findNavController(fabBtnView)
-            val args = DetailFragmentArgs.Builder().setItemNumber(vModel.getItemList().size).build().toBundle()
+            val args = DetailFragmentArgs.Builder(vModel.getItemList().size).build().toBundle()
             navController.navigate(R.id.action_launcher_home_to_detail,args)
         }
         performTag.setOnClickListener { v ->
-            val filterStr = filterEdit.text.toString()
-            val args = FilteredFragmentArgs.Builder()
-                    .setFilterDate(vModel.currentDateStr).setTagString(filterStr).build().toBundle()
+            vModel.tagFilters[0] = filterEdit.text.toString()
             val navController = Navigation.findNavController(v)
-            navController.navigate(R.id.action_launcher_home_to_filteredFragment, args)
+            navController.navigate(R.id.action_launcher_home_to_filteredFragment)
         }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         vModel.itemList.observe(this@MainFragment, Observer {
-            mAdapter.setListOfAdapter(vModel.getItemListCurrentWithTag(vModel.currentDateStr,vModel.currentTagFilter))
+            mAdapter.setListOfAdapter(vModel.getItemListCurrentWithTag(vModel.currentDateStr, vModel.tagFilters[0]))
             mAdapter.notifyDataSetChanged()
         })
     }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("filterDate", vModel.currentDateStr)
-        outState.putString("tagString", vModel.currentTagFilter)
+        outState.putString("tagString", vModel.tagFilters[0])
     }
 }

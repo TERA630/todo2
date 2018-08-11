@@ -38,10 +38,8 @@ class DetailFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val itemNumber = arguments?.let {
-            val safeArgs = DetailFragmentArgs.fromBundle(it)
-            safeArgs.itemNumber
-        } ?: vModel.getItemList().size
+        val itemNumber = this.arguments?.let { DetailFragmentArgs.fromBundle(it).itemNumber }
+                ?: vModel.getItemList().size
 
         // itemNumber<= アイテム数は編集モード､　itemNumber = アイテム数は追加モード
         if (itemNumber <= vModel.getItemList().lastIndex) {

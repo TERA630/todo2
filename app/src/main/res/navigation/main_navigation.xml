@@ -9,6 +9,9 @@
         android:name="com.example.yoshi.todo2.MainFragment"
         android:label="Home"
         tools:layout="@layout/fragment_main">
+        <argument
+            android:name="tagNumber"
+            android:defaultValue="0" />
         <action
             android:id="@+id/action_launcher_home_to_detail"
             app:destination="@id/fragment_detail"
@@ -17,9 +20,6 @@
             app:popEnterAnim="@anim/slide_in_top"
             app:popExitAnim="@anim/slide_out_bottom"
             app:popUpTo="@+id/launcher_home">
-            <argument
-                android:name="itemNumber"
-                android:defaultValue="0" />
         </action>
         <action
             android:id="@+id/action_launcher_home_to_filteredFragment"
@@ -28,21 +28,21 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/fade_out"
-            app:popUpTo="@+id/launcher_home" />
+            app:popUpTo="@+id/launcher_home">
         <argument
-            android:name="filterDate"
-            android:defaultValue="2004/3/31"
-            app:type="string" />
-        <argument
-            android:name="tagString"
-            android:defaultValue="exec"
-            app:type="string" />
+            android:name="tagNumber"
+            android:defaultValue="1"
+            app:type="integer" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/fragment_detail"
         android:name="com.example.yoshi.todo2.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="itemNumber"
+            app:type="integer" />
         <action
             android:id="@+id/action_fragment_detail_to_launcher_home"
             app:destination="@id/launcher_home"
@@ -50,16 +50,22 @@
             app:exitAnim="@anim/slide_out_bottom"
             app:popEnterAnim="@anim/slide_in_top"
             app:popExitAnim="@anim/slide_out_bottom"
-            app:popUpTo="@+id/launcher_home" />
+            app:popUpTo="@+id/launcher_home">
         <argument
-            android:name="itemNumber"
+            android:name="tagNumber"
             android:defaultValue="0"
             app:type="integer" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/filteredFragment"
         android:name="com.example.yoshi.todo2.FilteredFragment"
-        android:label="FilteredFragment">
+        android:label="FilteredFragment"
+        tools:layout="@layout/fragment_filtered">
+        <argument
+            android:name="tagNumber"
+            android:defaultValue="1"
+            app:type="integer" />
         <action
             android:id="@+id/action_filteredFragment_to_launcher_home"
             app:destination="@id/launcher_home"
@@ -68,15 +74,6 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@+id/launcher_home"
-            app:popUpToInclusive="false" />
-        <argument
-            android:name="tagString"
-            android:defaultValue="home"
-            app:type="string" />
-        <argument
-            android:name="filterDate"
-            android:defaultValue="2004/3/31"
-            app:type="string" />
+            app:popUpToInclusive="false"></action>
     </fragment>
-
 </navigation>

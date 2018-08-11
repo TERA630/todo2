@@ -14,8 +14,8 @@ class MainViewModel : ViewModel() {
     val itemList = MutableLiveData<MutableList<ToDoItem>>()
     var earnedPoints: Int = 0
     lateinit var filterSpinnerStrList: MutableList<String>
-    var currentDateStr = "2018/1/1"
-    var currentTagFilter = ""
+    var currentDateStr = "2018/8/1"
+    var tagFilters = mutableListOf("", "study", "program")
 
     fun initItems(_context: Context) {
         val repository = Repository()
@@ -45,12 +45,11 @@ class MainViewModel : ViewModel() {
             ?: listOf(ToDoItem(EMPTY_ITEM)).toMutableList()
 
     fun getItemListCurrentWithTag(targetDate: String, filterStr: CharSequence): MutableList<FilteredToDoItem> {
-        val resultList = if (filterStr == "") {
+        return if (filterStr == "") {
             getItemListWithDate(targetDate)
         } else {
             getItemListWithTag(filterStr.toString()).filterByDate(targetDate)
         }
-        return resultList
     }
 
     fun getItemListWithTag(filterStr: CharSequence): MutableList<FilteredToDoItem> {
@@ -65,11 +64,11 @@ class MainViewModel : ViewModel() {
         return filteredList
     }
 
-    fun getItemListWithDate(targetDate: String): MutableList<FilteredToDoItem> {
+    private fun getItemListWithDate(targetDate: String): MutableList<FilteredToDoItem> {
          val rawList = getItemList()
         val result: MutableList<FilteredToDoItem> = emptyList<FilteredToDoItem>().toMutableList()
         for (i in 0..rawList.lastIndex) {
-            if (isBefore(targetDate, rawList[i].startLine)) {
+            if (isBefore(itemDate = rawList[i].startLine, baseDateStr = targetDate)) {
                 result.add(FilteredToDoItem(i, rawList[i].copy()))
             }
         }
@@ -77,15 +76,15 @@ class MainViewModel : ViewModel() {
     }
     fun onEditorActionDone(edit: TextView, actionId: Int, event: KeyEvent?): Boolean {
         Log.i("test", "onEditorActionDone Call")
-        when (actionId) {
+        return when (actionId) {
             EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_NONE, EditorInfo.IME_ACTION_NEXT, EditorInfo.IME_NULL -> {
-                currentTagFilter = edit.text.toString()
+                tagFilters[0] = edit.text.toString()
                 val keyboardUtils = KeyboardUtils()
                 keyboardUtils.hide(edit.context, edit)
-                return true
+                true
             }
             else -> {
-                return false
+                false
             }
         }
     }

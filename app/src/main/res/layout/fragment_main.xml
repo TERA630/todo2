@@ -6,89 +6,88 @@
         <variable
             name="handler"
             type="com.example.yoshi.todo2.MainViewModel" />
-        <variable
-            name="targetDate"
-            type="String"/>
     </data>
     <android.support.constraint.ConstraintLayout
     android:id="@+id/mainFragRoot"
     android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-    <TextView
-        android:id="@+id/achievedPoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-        app:layout_constraintEnd_toStartOf="@+id/clearDone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/achievement" />
+
+        <TextView
+            android:id="@+id/achievedPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            app:layout_constraintEnd_toStartOf="@+id/clearDone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/achievement" />
 
         <Button
             android:id="@+id/clearDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:text="@string/getPoint"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    <EditText
-        android:id="@+id/filterEdit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:hint="enter filter"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:onEditorAction="@{handler::onEditorActionDone}"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toStartOf="@+id/filterByDateSpinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/performTag" />
 
-    <Spinner
-        android:id="@+id/filterByDateSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
-        android:entries="@array/date_array"
-        android:onItemSelected="@{handler::onItemSelected}"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toStartOf="@+id/performTag"
-        app:layout_constraintTop_toTopOf="@+id/performTag" />
+        <EditText
+            android:id="@+id/filterEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="enter filter"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:onEditorAction="@{handler::onEditorActionDone}"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toStartOf="@+id/filterByDateSpinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/achievedPoint" />
 
-    <Button
-        android:id="@+id/performTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Filter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clearDone" />
+        <Spinner
+            android:id="@+id/filterByDateSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:entries="@array/date_array"
+            android:onItemSelected="@{handler::onItemSelected}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintEnd_toStartOf="@+id/performTag"
+            app:layout_constraintTop_toTopOf="@+id/performTag" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="373dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:scrollbars="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/performTag"
-        tools:context=".MainActivity"
-        tools:itemCount="7"
-        tools:listitem="@layout/list_items" />
+        <Button
+            android:id="@+id/performTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/achievedPoint" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="368dp"
+            android:layout_height="447dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:scrollbars="vertical"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filterEdit"
+            tools:context=".MainActivity"
+            tools:itemCount="7"
+            tools:listitem="@layout/list_items" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/main_fab"
@@ -98,7 +97,6 @@
             android:layout_marginBottom="8dp"
             android:src="@android:drawable/ic_input_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="336dp"
             tools:src="@android:drawable/ic_input_add" />
 </android.support.constraint.ConstraintLayout>
 </layout>

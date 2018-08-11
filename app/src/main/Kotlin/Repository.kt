@@ -50,16 +50,16 @@ class Repository {
     fun loadListFromPreference(_context: Context): MutableList<ToDoItem> {
         val jsonString = loadStringFromPreference(ITEM_DATA, _context)
 
-        if (jsonString == EMPTY_ITEM) {
-            return makeDefaultList(_context)
+        return if (jsonString == EMPTY_ITEM) {
+            makeDefaultList(_context)
         } else {
-            try {
+            return try {
                 val toDoSerializer = ToDoItem::class.serializer()
                 val listSerializer = ArrayListSerializer(toDoSerializer)
-                return JSON.unquoted.parse(listSerializer, jsonString).toMutableList()
+                JSON.unquoted.parse(listSerializer, jsonString).toMutableList()
             } catch (e: Exception) {
                 Log.e("Error", "${e.message} with ${e.cause}")
-                return makeDefaultList(_context)
+                makeDefaultList(_context)
             }
         }
     }
@@ -69,7 +69,7 @@ class Repository {
         val defaultItemTitle = res.getStringArray(R.array.default_todoItem_title)
         val defaultItemStartDate = res.getStringArray(R.array.default_todoItem_startDate)
         val defaultItemTag = res.getStringArray(R.array.default_todoItem_tag)
-        val toDoList = List(6, { index -> ToDoItem(title = defaultItemTitle[index], hasStartLine = true, startLine = defaultItemStartDate[index], tagString = defaultItemTag[index]) })
+        val toDoList = List(defaultItemStartDate.size, { index -> ToDoItem(title = defaultItemTitle[index], hasStartLine = true, startLine = defaultItemStartDate[index], tagString = defaultItemTag[index]) })
         return toDoList.toMutableList()
     }
 }
@@ -82,6 +82,7 @@ fun MutableList<FilteredToDoItem>.swap(oneIndex: Int, otherIndex: Int) {
 
 fun MutableList<FilteredToDoItem>.filterByDate(dateStr: String): MutableList<FilteredToDoItem> {
     val resultlist = emptyList<FilteredToDoItem>().toMutableList()
+
     for (i in this.indices) {
         if ((this[i].item.hasStartLine) && isBefore(dateStr, this[i].item.startLine)) {
             resultlist.add(FilteredToDoItem(i, this[i].item.copy()))
