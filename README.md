@@ -7,6 +7,6 @@ Binding adaptor (Checkされていると Textをかえる)
 
 Databinding
 
-item＜＞
-Position
-苦労の割にそれほど報われていないよう
+Variableに　itemList＜Position＞を置いているが､
+毎回　OnBindingViewHolderでBindingしている｡　苦労の割にそれほど報われていないよう｡
+
